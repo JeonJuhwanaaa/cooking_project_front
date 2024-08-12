@@ -1,4 +1,7 @@
+import RootHeader from './components/RootHeader/RootHeader';
+import RootLayout from './components/RootLayout/RootLayout';
 import AuthRoute from './routes/AuthRoute';
+import RecipeRoute from './routes/RecipeRoute';
 
 function App() {
 
@@ -7,8 +10,13 @@ function App() {
 
   return (
     <>
-      <AuthRoute />
-      
+      <RootLayout>
+        <RootHeader>
+          <AuthRoute />
+          <RecipeRoute />
+        </RootHeader>
+      </RootLayout>
+
     </>
   );
 }
