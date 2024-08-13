@@ -1,3 +1,4 @@
+import RootContainer from './components/RootContainer/RootContainer';
 import RootHeader from './components/RootHeader/RootHeader';
 import RootLayout from './components/RootLayout/RootLayout';
 import AuthRoute from './routes/AuthRoute';
@@ -12,8 +13,10 @@ function App() {
     <>
       <RootLayout>
         <RootHeader>
-          <AuthRoute />
-          <RecipeRoute />
+          <RootContainer>
+            <AuthRoute />
+            <RecipeRoute />
+          </RootContainer>
         </RootHeader>
       </RootLayout>
 

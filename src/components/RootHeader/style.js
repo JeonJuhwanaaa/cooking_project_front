@@ -2,16 +2,16 @@ import { css } from "@emotion/react";
 
 export const haederlayout = css`
     display: flex;
-    position: sticky;
     justify-content: center;
     align-items: center;
+    position: fixed;
 
-    top: 0px;
+    z-index: 999;
 
     width: 100%;
     height: 70px;
 
-    color: #f4f0eb;
+    background-color: #f4f0eb;
 
     border: 1px solid #e5e7eb;
 `
@@ -32,7 +32,7 @@ export const logo = css`
         color: #fa934a;
     }
 
-    border: 1px solid black;
+    /* border: 1px solid black; */
 `
 
 export const left = css`
@@ -43,7 +43,7 @@ export const left = css`
     width: 394px;
     height: 100%;
 
-    border: 1px solid black;
+    /* border: 1px solid black; */
 `
 
 export const leftBox = css`
@@ -67,7 +67,7 @@ export const leftBox = css`
         }
     }
 
-    border: 1px solid black;
+    /* border: 1px solid black; */
 `
 
 export const right = css`
@@ -78,7 +78,7 @@ export const right = css`
     width: 394px;
     height: 100%;
 
-    border: 1px solid black;
+    /* border: 1px solid black; */
 `
 
 
@@ -101,5 +101,5 @@ export const rightBox = css`
         }
     }
 
-    border: 1px solid black;
+    /* border: 1px solid black; */
 `

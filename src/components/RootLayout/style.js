@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 
 export const layout = css`
-  display: flex; 
+  display: flex;
   flex-direction: column;
-  
+
 `
