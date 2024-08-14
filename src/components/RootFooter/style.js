@@ -5,10 +5,9 @@ export const layout = css`
     justify-content: center;
     align-items: center;
 
-    left: 0;
     bottom: 0;
     width: 100%;
-    height: 335px;
+    height: 300px;
     min-height: 200px;
     min-width: 1600px;
 
