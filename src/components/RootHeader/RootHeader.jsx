@@ -21,7 +21,7 @@ function RootHeader({children}) {
                 </div>
 
                 <div css={s.logo}>
-                    <a href="/">나만의 요리</a>
+                    <a href="/">나만의 요리책</a>
                 </div>
 
                 <div css={s.right}>

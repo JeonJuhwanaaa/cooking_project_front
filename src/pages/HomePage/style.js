@@ -36,9 +36,8 @@ export const mainTextBox = css`
     flex-direction: column;
     align-items: center;
 
-    margin-left: 50px;
-    
-    
+    margin-left: 60px;
+       
     width: 50%;
     height: 100%;
 
@@ -201,7 +200,7 @@ export const subTitle = css`
     height: 181px;
     width: 1050px;
 
-    color: #191919;
+    color: #444444;
     font-size: 12px;
 
     /* border: 1px solid black; */
@@ -239,7 +238,6 @@ export const choice = css`
 
     width: 100%;
     min-width: 1600px;
-
 
     border: 1px solid #e5e7eb;
 `

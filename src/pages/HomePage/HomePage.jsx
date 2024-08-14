@@ -12,7 +12,7 @@ function HomePage(props) {
         <>
             <div css={s.mainLayout}>
                 <div css={s.mainImgBox}>
-                    <img style={{width: "700px", height: "700px"}} src={mainFood} alt="" />
+                    <img style={{width: "650px", height: "650px"}} src={mainFood} alt="" />
                 </div>
                 <div css={s.mainTextBox}>
                     <div css={s.text1}>
