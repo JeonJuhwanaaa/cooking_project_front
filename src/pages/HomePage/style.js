@@ -25,7 +25,7 @@ export const mainImgBox = css`
     height: 100%;
 
     img {
-        margin-left: 250px;
+        margin-left: 350px;
     }
 
     /* border: 1px solid black; */
@@ -36,7 +36,7 @@ export const mainTextBox = css`
     flex-direction: column;
     align-items: center;
 
-    margin-left: 60px;
+    margin-left: 100px;
        
     width: 50%;
     height: 100%;
