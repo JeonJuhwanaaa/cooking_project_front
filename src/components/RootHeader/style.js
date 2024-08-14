@@ -5,7 +5,7 @@ export const haederlayout = css`
     justify-content: center;
     align-items: center;
     position: fixed;
-
+    
     z-index: 999;
 
     width: 100%;
@@ -26,10 +26,10 @@ export const logo = css`
     height: 100%;
 
     a {
-        font-size: 20px;
+        font-size: 25px;
         text-decoration: none;
         font-weight: 1000;
-        color: #fa934a;
+        color: #222222;
     }
 
     /* border: 1px solid black; */

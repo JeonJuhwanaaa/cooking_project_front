@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import * as s from "./style";
+import mainFood from "./mainfood.jpg";
 
 
 function HomePage(props) {
@@ -10,8 +11,25 @@ function HomePage(props) {
     return (
         <>
             <div css={s.mainLayout}>
-                <span>메인 스크린 / 이벤트 or 이슈 / 슬라이드 효과 </span>
+                <div css={s.mainImgBox}>
+                    <img style={{width: "700px", height: "700px"}} src={mainFood} alt="" />
+                </div>
+                <div css={s.mainTextBox}>
+                    <div css={s.text1}>
+                        <span>레시피를 나누고</span>
+                        <span>행복을 요리하세요!</span>
+                    </div>
+                    <div css={s.text2}>
+                        <span>이곳은 서로의 다양한 레시피를 공유하고 발견 할 수 있는 공간입니다.</span>
+                        <span>회원님이 직접 올린 요리법으로 새로운 맛의 경험을 즐겨보세요.</span>
+                        <span>누구나 손쉽게 따라할 수 있는 요리법으로 가족과 친구들과 함께 행복을 만들어 보세요!</span>
+                        <div css={s.showButton}>
+                            <button>SEE MORE</button>
+                        </div>
+                    </div>
+                </div>
             </div>
+
             <div css={s.category}>
                 <div css={s.inventory}>
                     <div css={s.item}>
