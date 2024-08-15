@@ -21,7 +21,7 @@ function SigninPage(props) {
                 </div>
                 <button css={s.loginButton} >로그인</button>
                 <div css={s.loginFoot}>
-                    <a href="/auth/signup">회원가입</a>
+                    <a href="/auth/agreement">회원가입</a>
                     <a href="">아이디 · 비밀번호 찾기</a>
                 </div>
             </div>

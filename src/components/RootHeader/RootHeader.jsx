@@ -10,13 +10,13 @@ function RootHeader({children}) {
             <div css={s.haederlayout}>
                 <div css={s.left}>
                     <div css={s.leftBox}>
-                        <a href="">unknown</a>
+                        <a href="">Shop</a>
                     </div>
                     <div css={s.leftBox}>
-                        <a href="">unknown</a>
+                        <a href="">Our Story</a>
                     </div>
                     <div css={s.leftBox}>
-                        <a href="">unknown</a>
+                        <a href="">FAQ</a>
                     </div>
                 </div>
 
