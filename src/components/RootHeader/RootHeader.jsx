@@ -21,12 +21,12 @@ function RootHeader({children}) {
                 </div>
 
                 <div css={s.logo}>
-                    <a href="/">나만의 요리책</a>
+                    <a href="/">우리의 요리책</a>
                 </div>
 
                 <div css={s.right}>
                     <div css={s.rightBox}>
-                        <a href="/auth/signup">Login</a>
+                        <a href="/auth/signin">Login</a>
                     </div>
                     <div css={s.rightBox}>
                         <a href="">Cart</a>
