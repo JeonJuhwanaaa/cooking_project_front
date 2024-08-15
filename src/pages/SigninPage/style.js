@@ -12,9 +12,26 @@ export const layout = css`
     height: 900px;
 
     background-color: #fcf9f6;
-    
+
     /* border: 1px solid black; */
 `
+// --------------------------------------------------
+
+export const head = css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 150px;
+    width: 700px;
+
+    font-size: 50px;
+    font-weight: 700;
+
+    /* border: 1px solid black; */
+`
+
+// --------------------------------------------------
 
 export const login = css`
     display: flex;
@@ -79,7 +96,7 @@ export const loginButton = css`
 
     padding: 20px 40px;
 
-    width: 385px;
+    width: 380px;
     height: 30px;
 
     background-color: transparent;
@@ -93,7 +110,6 @@ export const loginButton = css`
 
     cursor: pointer;
     
-    border-radius: 20px;
     border: 1px solid #222222;
 `
 
@@ -163,11 +179,82 @@ export const line3 = css`
 
 export const oauthLogin = css`
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 
     width: 700px;
-    height: 200px;
+    height: 150px;
 
-    border: 1px solid black;
+    /* border: 1px solid black; */
+`
+
+export const kakao = css`
+    display: flex;
+    align-items: center;
+
+    width: 380px;
+    height: 40px;
+
+    margin-bottom: 10px;
+
+    background-color: #FFEB00;
+
+    img {
+        margin-left: 10px;
+    }
+
+    button {
+        margin: 0px auto;
+        text-decoration: none;
+
+        color: #3c1e1e;
+        background-color: transparent;
+        
+        width: 100%;
+        height: 100%;
+
+        font-size: 14px;
+        border: none;
+
+        cursor: pointer;
+    }
+    
+    cursor: pointer;
+    /* border: 1px solid black; */
+`
+
+
+export const naver = css`
+    display: flex;
+    align-items: center;
+
+    width: 380px;
+    height: 40px;
+
+    margin-bottom: 10px;
+
+    background-color: #27d34a;
+
+    img {
+        margin-left: 10px;
+    }
+    button {
+        margin: 0px auto;
+        text-decoration: none;
+
+        color: #ffffff;
+        background-color: transparent;
+        
+        width: 100%;
+        height: 100%;
+
+        font-size: 14px;
+        border: none;
+
+        cursor: pointer;
+    }
+    
+    cursor: pointer;
+    /* border: 1px solid black; */
 `

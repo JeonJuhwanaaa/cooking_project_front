@@ -8,6 +8,10 @@ function SigninPage(props) {
     return (
         <div css={s.layout}>
 
+            <div css={s.head}>
+                <span>로그인</span>
+            </div>
+
             <div css={s.login}>
                 <input css={s.loginInput} type="text" placeholder="아이디" />
                 <input css={s.loginInput} type="password" placeholder="비밀번호" />
@@ -31,7 +35,15 @@ function SigninPage(props) {
             </div>
 
             <div css={s.oauthLogin}>
-                
+                <div css={s.kakao}>
+                    <img style={{width: "20px", height: "20px"}} src="https://vendor-cdn.imweb.me/images/kakao_icon.png" alt="" />
+                    <button >카카오로 시작하기</button>
+                </div>
+                <div css={s.naver}>
+                    <img style={{width: "20px", height: "20px"}} src="https://vendor-cdn.imweb.me/images/naver_login2x.png" alt="" />
+                    <button>네이버로 시작하기</button>
+                </div>
+
             </div>
         </div>
     );
