@@ -2,28 +2,72 @@
 
 import { useNavigate } from "react-router-dom";
 import * as s from "./style";
+import { useEffect, useState } from "react";
 
 function AgreementPage(props) {
 
     const navigate = useNavigate("");
+    const [useAgree, setUseAgree] = useState(0);
+    const [infoAgree, setInfoAgree] = useState(0);
+    const [ageAgree, setAgeAgree] = useState(0);
+    const [allAgree, setAllAgree] = useState(false);
 
+
+    useEffect(() => {
+        console.log(`이용약관 동의 체크 여부":${useAgree}`)
+        console.log(`개인정보 수집 동의 체크 여부":${infoAgree}`)
+        console.log(`만 14세 이상 체크 여부":${ageAgree}`)
+    },[useAgree, infoAgree, ageAgree]);
 
     const handleBackOnClick = () => {
         navigate("/auth/signin");
     }
 
     const handleAgreeOnClick = () => {
-        navigate("/auth/signup");
+        if(useAgree === 1 && infoAgree === 1 && ageAgree === 1) {
+            navigate("/auth/signup");
+        } else if(useAgree !== 1 || infoAgree !== 1 || ageAgree !== 1) {
+            alert("필수사항 체크 확인해주세요.");
+        }
     }
+
+    const useAgreeCheckboxOnChange = (e) => {
+        setUseAgree(e.target.checked ? 1 : 0);
+        checkAllAgree(e.target.checked, infoAgree === 1, ageAgree === 1);
+    };
+
+    const infoAgreeCheckboxOnChange = (e) => {
+        setInfoAgree(e.target.checked ? 1 : 0);
+        checkAllAgree(useAgree === 1, e.target.checked, ageAgree === 1);
+    };
+
+    const ageAgreeCheckboxOnChange = (e) => {
+        setAgeAgree(e.target.checked ? 1 : 0);
+        checkAllAgree(useAgree === 1, infoAgree === 1, e.target.checked);
+    };
+
+    const allAgreeCheckboxOnChange = (e) => {
+        const isChecked = e.target.checked;
+        setAllAgree(isChecked);
+        setUseAgree(isChecked ? 1 : 0);
+        setInfoAgree(isChecked ? 1 : 0);
+        setAgeAgree(isChecked ? 1 : 0);
+    }
+
+    const checkAllAgree = (use, info, age) => {
+        // 모두 동의 체크박스 상태를 업데이트합니다.
+        setAllAgree(use && info && age);
+    };
+
 
     return (
         <div css={s.layout}>
             <div css={s.text1}>
-                <input type="checkbox" />
+                <input type="checkbox" onChange={allAgreeCheckboxOnChange} checked={allAgree}/>
                 <span>이용약관, 개인정보 수집 및 이용에 모두 동의합니다.</span>
             </div>
             <div css={s.text2}>
-                <input type="checkbox" />
+                <input type="checkbox" onChange={useAgreeCheckboxOnChange} checked={useAgree === 1}/>
                 <span>이용약관 동의</span>
                 <span>(필수)</span>
             </div>
@@ -295,7 +339,7 @@ function AgreementPage(props) {
                 </span>
             </div>
             <div css={s.text2}>
-                <input type="checkbox" />
+                <input type="checkbox"  onChange={infoAgreeCheckboxOnChange} checked={infoAgree === 1}/>
                 <span>개인정보 수집 및 이용 동의</span>
                 <span>(필수)</span>
             </div>
@@ -345,7 +389,7 @@ function AgreementPage(props) {
                 <span>(선택)</span>
             </div>
             <div css={s.text2}>
-                <input type="checkbox" />
+                <input type="checkbox"  onChange={ageAgreeCheckboxOnChange} checked={ageAgree === 1}/>
                 <span>만 14세 이상입니다.</span>
                 <span>(필수)</span>
             </div>
