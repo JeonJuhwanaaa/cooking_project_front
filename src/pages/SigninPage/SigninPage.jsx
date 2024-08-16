@@ -1,8 +1,66 @@
 /** @jsxImportSource @emotion/react */
 
+import { useEffect, useState } from "react";
 import * as s from "./style";
+import { signinRequest } from "../../apis/signup";
 
 function SigninPage(props) {
+
+    const [username, setUsername] = useState();
+    const [password, setPassword] = useState();
+    const [infoSave, setInfoSave] = useState(false);
+
+    
+    useEffect(() => {
+        const saveUsername = localStorage.getItem("savedUsername");
+        if(saveUsername) {
+            setUsername(saveUsername);
+            setInfoSave(true);
+        }
+    },[]);
+
+    useEffect(() => {
+        console.log(username);
+        console.log(password);
+        console.log(infoSave);
+    },[username, password, infoSave]);
+
+    const handleSignin = () => {
+        signinRequest({
+            username,
+            password
+        }).then(response => {
+            alert(response.data);
+        }).catch(error => {
+            alert(error.data);
+        });
+    }
+
+
+    const handleUsernameOnchange = (e) => {
+        const newUsername = e.target.value;
+        setUsername(newUsername);
+        if (infoSave) {
+            // 아이디 저장이 체크된 상태에서만 로컬 스토리지에 저장
+            localStorage.setItem("savedUsername", newUsername);
+        }
+    };
+
+    const handlePasswordOnchange = (e) => {
+        setPassword(() => e.target.value);
+    }
+
+    const handleUsernameSaveOnchange = (e) => {
+        const isChecked = e.target.checked;
+        setInfoSave(isChecked);
+        if (isChecked) {
+            // 체크박스가 선택되었을 때 아이디를 로컬 스토리지에 저장
+            localStorage.setItem("savedUsername", username);
+        } else {
+            // 체크박스가 해제되었을 때 로컬 스토리지에서 아이디 제거
+            localStorage.removeItem("savedUsername");
+        }
+    };
 
 
     return (
@@ -13,13 +71,13 @@ function SigninPage(props) {
             </div>
 
             <div css={s.login}>
-                <input css={s.loginInput} type="text" placeholder="아이디" />
-                <input css={s.loginInput} type="password" placeholder="비밀번호" />
+                <input css={s.loginInput} name={"username"} type="text" placeholder="아이디" value={username} onChange={handleUsernameOnchange}/>
+                <input css={s.loginInput} name={"password"} type="password" placeholder="비밀번호" value={password} onChange={handlePasswordOnchange}/>
                 <div css={s.logincheck}>
-                    <input type="checkbox" />
-                    <span>로그인상태유지</span>
+                    <input type="checkbox" onChange={handleUsernameSaveOnchange} checked={infoSave}/>
+                    <span>아이디 저장</span>
                 </div>
-                <button css={s.loginButton} >로그인</button>
+                <button css={s.loginButton} onClick={handleSignin} >로그인</button>
                 <div css={s.loginFoot}>
                     <a href="/auth/agreement">회원가입</a>
                     <a href="">아이디 · 비밀번호 찾기</a>

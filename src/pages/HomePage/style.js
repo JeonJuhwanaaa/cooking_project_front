@@ -135,16 +135,16 @@ export const item = css`
     width: 200px;
     height: 130px;
 
-    &:nth-child(1) {
+    &:nth-of-type(1) {
         margin-right: 10px;
     }
-    &:nth-child(2) {
+    &:nth-of-type(2) {
         margin-right: 10px;
     }
-    &:nth-child(3) {
+    &:nth-of-type(3) {
         margin-right: 10px;
     }
-    &:nth-child(4) {
+    &:nth-of-type(4) {
         margin-right: 10px;
     }
 

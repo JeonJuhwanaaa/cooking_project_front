@@ -13,11 +13,11 @@ function AgreementPage(props) {
     const [allAgree, setAllAgree] = useState(false);
 
 
-    useEffect(() => {
-        console.log(`이용약관 동의 체크 여부":${useAgree}`)
-        console.log(`개인정보 수집 동의 체크 여부":${infoAgree}`)
-        console.log(`만 14세 이상 체크 여부":${ageAgree}`)
-    },[useAgree, infoAgree, ageAgree]);
+    // useEffect(() => {
+    //     console.log(`이용약관 동의 체크 여부":${useAgree}`)
+    //     console.log(`개인정보 수집 동의 체크 여부":${infoAgree}`)
+    //     console.log(`만 14세 이상 체크 여부":${ageAgree}`)
+    // },[useAgree, infoAgree, ageAgree]);
 
     const handleBackOnClick = () => {
         navigate("/auth/signin");
