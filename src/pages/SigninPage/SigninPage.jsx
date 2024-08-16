@@ -19,11 +19,11 @@ function SigninPage(props) {
         }
     },[]);
 
-    useEffect(() => {
-        console.log(username);
-        console.log(password);
-        console.log(infoSave);
-    },[username, password, infoSave]);
+    // useEffect(() => {
+    //     console.log(username);
+    //     console.log(password);
+    //     console.log(infoSave);
+    // },[username, password, infoSave]);
 
     const handleSignin = () => {
         signinRequest({

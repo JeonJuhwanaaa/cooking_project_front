@@ -7,11 +7,15 @@ import { signupRequest } from "../../apis/signup";
 import Select from "react-select";
 import { getFoodType } from "../../apis/options";
 import { useQuery } from "react-query";
+import { TbPointFilled } from "react-icons/tb";
+import { useNavigate } from "react-router-dom";
 
 function SignupPage(props) {
 
+    const navigate = useNavigate("");
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
+    const [checkPassword, setCheckPassword] = useState();
     const [email, setEmail] = useState();
     const [foodTypeOption, setFoodTypeOption] = useState([]);
     const [foodTypeId, setFoodTypeId] = useState();
@@ -54,30 +58,76 @@ function SignupPage(props) {
         setEmail(() => e.target.value);
     }
 
-    const handleFoodTypeOnChange = (foodTypeId) => {
-        setFoodTypeId(() => foodTypeId.value);
-        console.log(foodTypeId);
+    const handleBackOnClick = () => {
+        navigate("/auth/agreement");
     }
 
     return (
         <div css={s.layout}>
-            <div css={s.box}>                
-                <input type="text" name={"username"} placeholder="아이디"  value={username} onChange={handleUsernameOnChange}/>
-                <input type="password" name={"password"} placeholder="비밀번호" value={password} onChange={handlePasswordOnChange}/>
-                <input type="text" name={"email"} placeholder="이메일" value={email} onChange={handleEmailOnChange}/>
+            <div css={s.signupInput}>
 
-                <button onClick={handleButton}>확인</button>
-            </div>
-            <div css={s.box}>
-                <span>아이디 : {username}</span>
-                <span>비밀번호 : {password}</span>
-                <span>이메일 : {email}</span>
-            </div>
-            <div css={s.box}>
-                <Select options={foodTypeOption} placeholder="음식별" onChange={handleFoodTypeOnChange}/>
-                <span>foodTypeId : {foodTypeId}</span>
-            </div>
-            
+                <div css={s.head}>
+                    <span>회원가입</span>
+                </div>
+
+                <div css={s.inputBox1}>
+                    <input type="text" name={"username"} placeholder="아이디"  value={username} onChange={handleUsernameOnChange}/>
+                    <input type="password" name={"password"} placeholder="비밀번호" value={password} onChange={handlePasswordOnChange}/>
+                    <input type="password" name={"checkPassword"} placeholder="비밀번호 확인" value={checkPassword} />
+                </div>
+
+                <div css={s.nameBox}>
+                    <span>이름</span>
+                    <span><TbPointFilled /></span>
+                </div>
+                <div css={s.nameInputBox}>
+                    <input type="text" name={"name"} placeholder="이름을 입력해주세요."/>
+                </div>
+
+                <div css={s.nameBox}>
+                    <span>성별</span>
+                    <span><TbPointFilled /></span>
+                </div>
+                <div css={s.radioBox}>
+                    <input id="radio3" type="radio" name="gender" value="male" />
+                    <label htmlFor="radio3">남자</label>
+                </div>
+                <div css={s.radioBox}>
+                    <input id="radio4" type="radio" name="gender" value="famale" />
+                    <label htmlFor="radio4">여자</label>
+                </div>
+
+                <div css={s.nameBox}>
+                    <span>이메일</span>
+                    <span><TbPointFilled /></span>
+                </div>
+                <div css={s.nameInputBox}>
+                    <input type="text" name={"email"} placeholder="이메일"/>
+                </div>
+
+                <div css={s.nameBox}>
+                    <span>전화번호</span>
+                    <span><TbPointFilled /></span>
+                </div>
+                <div css={s.nameInputBox}>
+                    <input type="text" name={"phoneNumber"} placeholder="전화번호"/>
+                </div>
+
+                <div css={s.nameBox}>
+                    <span>주소</span>
+                    <span><TbPointFilled /></span>
+                </div>
+                <div css={s.adressInputBox}>
+                    <input type="text" name={"adress"} placeholder="주소"/>
+                    <input type="text" name={"extraAdress"} placeholder="상세주소"/>
+                </div>
+
+                <div css={s.buttonBox}>
+                    <button onClick={handleBackOnClick}>뒤로가기</button>
+                    <button>가입하기</button>
+                </div>
+
+            </div>            
         </div>
     );
 }
