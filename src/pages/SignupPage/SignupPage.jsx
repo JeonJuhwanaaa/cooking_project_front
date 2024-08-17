@@ -15,51 +15,73 @@ function SignupPage(props) {
     const navigate = useNavigate("");
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
+    const [name, setName] = useState();
+    const [genderId, setGenderId] = useState();
+    const [phoneNumber, setPhoneNumber] = useState();
     const [checkPassword, setCheckPassword] = useState();
     const [email, setEmail] = useState();
-    const [foodTypeOption, setFoodTypeOption] = useState([]);
-    const [foodTypeId, setFoodTypeId] = useState();
+    const [address, setAddress] = useState();
+    const [extraAddress, setExtradAddress] = useState();
 
-
-    const handleButton = () => {
-        signupRequest({
-            username,
-            password,
-            email
-        });
-    }
-
-    const foodTypeQuery = useQuery(
-        ["foodTypeQuery"], getFoodType,
-        {
-            onSuccess: response => {
-                console.log(response);
-                setFoodTypeOption(() => response.data.map(foodType => {
-                    return {
-                        value: foodType.foodTypeId,
-                        label: foodType.foodType
-                    }
-                }));
-            },
-            retry: 0,
-            refetchOnWindowFocus: false
-        }
-    );
-
-
-
+    // 아이디 입력받기.
     const handleUsernameOnChange = (e) => {
         setUsername(() => e.target.value);
     }
+    // 비밀번호 입력받기.
     const handlePasswordOnChange = (e) => {
         setPassword(() => e.target.value);
     }
+    // 이름 입력받기.
+    const handleNameOnChange = (e) => {
+        setName(() => e.target.value);
+    }
+    // 성별 (남자) 입력받기.
+    const handleMaleGenderOnChange = (e) => {
+        setGenderId(() => 1);
+    }
+    // 성별 (여자) 입력받기.
+    const handleFamaleGenderOnChange = (e) => {
+        setGenderId(() => 2);
+    }
+    // 이메일 입력받기.
     const handleEmailOnChange = (e) => {
         setEmail(() => e.target.value);
     }
+    // 번호 입력받기.
+    const handlePhoneNumberOnChange = (e) => {
+        setPhoneNumber(() => e.target.value);
+    }
+    // 주소 입력받기.
+    const handleAddressOnChange = (e) => {
+        setAddress(() => e.target.value);
+    }
+    // 추가주소 입력받기.
+    const handleExtraAddressOnChange = (e) => {
+        setExtradAddress(() => e.target.value);
+    }
 
+    // 뒤로가기.
     const handleBackOnClick = () => {
         navigate("/auth/agreement");
+    }
+
+    // 가입하기.
+    const handleSignupButton = () => {
+        signupRequest({
+            username,
+            password,
+            name,
+            genderId,
+            email,
+            phoneNumber,
+            address,
+            extraAddress
+        }).then(response => {
+            alert("가입 성공");
+            navigate("/auth/signin");
+        }).catch(error => {
+            alert("입력 정보를 다시 확인해주세요.");
+        });
     }
 
     return (
@@ -81,7 +103,7 @@ function SignupPage(props) {
                     <span><TbPointFilled /></span>
                 </div>
                 <div css={s.nameInputBox}>
-                    <input type="text" name={"name"} placeholder="이름을 입력해주세요."/>
+                    <input type="text" name={"name"} placeholder="이름을 입력해주세요." onChange={handleNameOnChange}/>
                 </div>
 
                 <div css={s.nameBox}>
@@ -89,12 +111,12 @@ function SignupPage(props) {
                     <span><TbPointFilled /></span>
                 </div>
                 <div css={s.radioBox}>
-                    <input id="radio3" type="radio" name="gender" value="male" />
-                    <label htmlFor="radio3">남자</label>
+                    <input id="radio1" type="radio" name="gender" value="male" onChange={handleMaleGenderOnChange}/>
+                    <label htmlFor="radio1">남자</label>
                 </div>
                 <div css={s.radioBox}>
-                    <input id="radio4" type="radio" name="gender" value="famale" />
-                    <label htmlFor="radio4">여자</label>
+                    <input id="radio2" type="radio" name="gender" value="famale" onChange={handleFamaleGenderOnChange}/>
+                    <label htmlFor="radio2">여자</label>
                 </div>
 
                 <div css={s.nameBox}>
@@ -102,7 +124,7 @@ function SignupPage(props) {
                     <span><TbPointFilled /></span>
                 </div>
                 <div css={s.nameInputBox}>
-                    <input type="text" name={"email"} placeholder="이메일"/>
+                    <input type="text" name={"email"} placeholder="이메일" onChange={handleEmailOnChange}/>
                 </div>
 
                 <div css={s.nameBox}>
@@ -110,7 +132,7 @@ function SignupPage(props) {
                     <span><TbPointFilled /></span>
                 </div>
                 <div css={s.nameInputBox}>
-                    <input type="text" name={"phoneNumber"} placeholder="전화번호"/>
+                    <input type="text" name={"phoneNumber"} placeholder="전화번호" onChange={handlePhoneNumberOnChange}/>
                 </div>
 
                 <div css={s.nameBox}>
@@ -118,13 +140,13 @@ function SignupPage(props) {
                     <span><TbPointFilled /></span>
                 </div>
                 <div css={s.adressInputBox}>
-                    <input type="text" name={"adress"} placeholder="주소"/>
-                    <input type="text" name={"extraAdress"} placeholder="상세주소"/>
+                    <input type="text" name={"adress"} placeholder="주소" onChange={handleAddressOnChange}/>
+                    <input type="text" name={"extraAdress"} placeholder="상세주소" onChange={handleExtraAddressOnChange} />
                 </div>
 
                 <div css={s.buttonBox}>
                     <button onClick={handleBackOnClick}>뒤로가기</button>
-                    <button>가입하기</button>
+                    <button onClick={handleSignupButton} >가입하기</button>
                 </div>
 
             </div>            
