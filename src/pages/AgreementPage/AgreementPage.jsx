@@ -27,7 +27,7 @@ function AgreementPage(props) {
         if(useAgree === 1 && infoAgree === 1 && ageAgree === 1) {
             navigate("/auth/signup");
         } else if(useAgree !== 1 || infoAgree !== 1 || ageAgree !== 1) {
-            alert("필수사항 체크 확인해주세요.");
+            alert("이용약관 및 개인정보 처리방침에 동의하셔야 가입이 가능합니다.");
         }
     }
 

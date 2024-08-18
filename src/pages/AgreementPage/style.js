@@ -41,6 +41,10 @@ export const text1 = css`
         margin-left: 5px;
     }
 
+    span:nth-of-type(2) {
+        color: #8f8f8f;
+    }
+
     /* border: 1px solid black; */
 `
 export const text2 = css`

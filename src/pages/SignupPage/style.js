@@ -68,6 +68,24 @@ export const inputBox1 = css`
     /* border: 1px solid black; */
 `
 
+export const message = css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-top: 5px;
+    
+    width: 450px;
+    height: 20px;
+
+    /* border: 1px solid black; */
+`
+
+export const messageBox = (type) => css`
+    font-size: 14px;
+    color: ${type === "error" ? "red" : "#8f8f8f"};
+`
+
 export const nameBox = css`
     display: flex;
     align-items: center;

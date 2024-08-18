@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import * as s from "./style";
 import { signupRequest } from "../../apis/signup";
 import Select from "react-select";
@@ -22,6 +22,30 @@ function SignupPage(props) {
     const [email, setEmail] = useState();
     const [address, setAddress] = useState();
     const [extraAddress, setExtradAddress] = useState();
+
+
+    const [ checkPasswordMessage, setCheckPasswordMessage ] = useState(null);
+
+    useEffect(() => {
+        if(!checkPassword || !password) {
+            setCheckPasswordMessage(() => null);
+            return;
+        }else if(password === checkPassword) {
+            setCheckPasswordMessage(() => {
+                return {
+                    type: "success",
+                    text: "비밀번호가 일치합니다."
+                }
+            });
+        }else {
+            setCheckPasswordMessage(() => {
+                return {
+                    type: "error",
+                    text: "비밀번호가 일치하지 않습니다."
+                }
+            });
+        }
+    },[password, checkPassword]);
 
     // 아이디 입력받기.
     const handleUsernameOnChange = (e) => {
@@ -84,6 +108,10 @@ function SignupPage(props) {
         });
     }
 
+    const handleCheckPassword = (e) => {
+        setCheckPassword(() => e.target.value);
+    }
+
     return (
         <div css={s.layout}>
             <div css={s.signupInput}>
@@ -95,7 +123,15 @@ function SignupPage(props) {
                 <div css={s.inputBox1}>
                     <input type="text" name={"username"} placeholder="아이디"  value={username} onChange={handleUsernameOnChange}/>
                     <input type="password" name={"password"} placeholder="비밀번호" value={password} onChange={handlePasswordOnChange}/>
-                    <input type="password" name={"checkPassword"} placeholder="비밀번호 확인" value={checkPassword} />
+                    <input type="password" name={"checkPassword"} placeholder="비밀번호 확인" value={checkPassword} onChange={handleCheckPassword}/>
+                </div>
+                <div css={s.message}>
+                    {/* checkPasswordMessage && -> checkPasswordMessage 가 존재하고 null 또는 undefined가 아니면 뒤 코드들 실행 */}
+                    {checkPasswordMessage && ( 
+                        <div css={s.messageBox(checkPasswordMessage.type)}>
+                            {checkPasswordMessage.text}
+                        </div>
+                    )}
                 </div>
 
                 <div css={s.nameBox}>

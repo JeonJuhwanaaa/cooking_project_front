@@ -32,7 +32,7 @@ function RootHeader({children}) {
                         <a href="">Cart</a>
                     </div>
                     <div css={s.rightBox}>
-                        <a href="">Mypage</a>
+                        <a href="/mypage">Mypage</a>
                     </div>
                     <div css={s.rightBox}>
                         <a href="">Search</a>
