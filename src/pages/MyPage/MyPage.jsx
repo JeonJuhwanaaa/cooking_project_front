@@ -6,15 +6,24 @@ import { PiBookmarkSimpleThin } from "react-icons/pi";
 import { CiHeart } from "react-icons/ci";
 import { PiCookingPotThin } from "react-icons/pi";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { getFoodType } from "../../apis/options";
 
 function MyPage(props) {
 
     const navigate = useNavigate();
+    const [foodTypeOption, setFoodTypeOption] = useState([]);
 
 
     const handleLogout = () => {
         navigate("/auth/signin");
     }
+
+    const handleAddRecipe = () => {
+        navigate("/addrecipe");
+    }
+
+    
 
 
     return (
@@ -36,8 +45,8 @@ function MyPage(props) {
                     </div>
                     <div css={s.line}></div>
                     <div css={s.menu}>
-                        <a href="">-회원정보 수정</a>
-                        <a href="">-레시피</a>
+                        <a href="">-- 회원정보 수정</a>
+                        <a href="">-- 나의 레시피</a>
                     </div>
                     <div css={s.line}></div>
                     <div css={s.logout}>
@@ -51,7 +60,7 @@ function MyPage(props) {
                 <div css={s.rightProfile}>
                     <div css={s.rightHead}>
                         <span>나의 활동</span>
-                        <button>레시피 등록</button>
+                        <button onClick={handleAddRecipe}>레시피 등록</button>
                     </div>
                     <div css={s.body1}>
                         <div css={s.piece}>
