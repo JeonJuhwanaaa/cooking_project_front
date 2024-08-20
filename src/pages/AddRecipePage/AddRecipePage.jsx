@@ -5,7 +5,9 @@ import * as s from "./style";
 import Select from "react-select";
 import { useState } from "react";
 import { useQuery } from "react-query";
-import { TbCameraPlus } from "react-icons/tb";
+import { BsPlusLg } from "react-icons/bs";
+import camera from "./camera.png";
+
 import { getDifficultyLevel, getFoodType, getIngredientType, getPersonnel, getSituationType, getTakeTime, getWayType } from "../../apis/options";
 
 
@@ -156,6 +158,7 @@ function AddRecipePage(props) {
         }
     );
 
+    // 요리 순서 ------------------------------------------------------
     const [steps, setSteps] = useState([
         {id: 1, text: "", image: ""},
         {id: 2, text: "", image: ""}
@@ -173,6 +176,44 @@ function AddRecipePage(props) {
             {id: steps.length + 1, text: "", image: ""}
         ]);
     };
+
+    // 재료 ------------------------------------------------------
+    const [ingredients, setIngredient] = useState([
+        {text:"", text:""},
+        {text:"", text:""}
+    ]);
+
+    const handleAddIngredient = (e, index) => {
+        const newIngredients = [...ingredients];
+        newIngredients[index].text = e.target.value;
+        setIngredient(newIngredients);
+    }
+
+    const addIngredient = () => {
+        setIngredient([
+            ...ingredients,
+            {text: "", text: ""}
+        ]);
+    }
+
+    // 양념 ------------------------------------------------------
+    const [seasonings, setSeasoning] = useState([
+        {text:"", text:""},
+        {text:"", text:""}
+    ]);
+
+    const handleAddSeasoning = (e, index) => {
+        const newSeasonings = [...seasonings];
+        newSeasonings[index].text = e.target.value;
+        setSeasoning(newSeasonings);
+    }
+
+    const addSeasoning = () => {
+        setSeasoning([
+            ...seasonings,
+            {text: "", text: ""}
+        ]);
+    }
 
 
     return (
@@ -220,15 +261,45 @@ function AddRecipePage(props) {
                 <div css={s.title}>
                     <span>재료</span>
                 </div>
-                <div css={s.category}>
-                    
+                <div css={s.ingredientCategory}>
+
+                    {ingredients.map((ingredient) => (
+                        <div css={s.ingredient}>
+                            <div key={ingredient.id} css={s.ingre}>
+                                <input type="text" placeholder="예)"/>
+                                <input type="text" placeholder="예)"/>
+                            </div>
+                            <div css={s.ingreButton}>
+                                <button>삭제</button>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+                <div css={s.addButton}>
+                    <button onClick={addIngredient}><BsPlusLg />추가</button>
                 </div>
 
                 <div css={s.title}>
                     <span>양념</span>
                 </div>
-                <div css={s.category}>
+
+                <div css={s.ingredientCategory}>
+
+                    {seasonings.map((seasoning) => (
+                        <div css={s.ingredient}>
+                            <div key={seasoning.id} css={s.ingre}>
+                                <input type="text" placeholder="예)"/>
+                                <input type="text" placeholder="예)"/>
+                            </div>
+                            <div css={s.ingreButton}>
+                                <button>삭제</button>
+                            </div>
+                        </div>
+                    ))}
                     
+                </div>
+                <div css={s.addButton}>
+                    <button onClick={addSeasoning}><BsPlusLg />추가</button>
                 </div>
 
                 <div css={s.title}>
@@ -241,18 +312,21 @@ function AddRecipePage(props) {
                         <div key={step.id} css={s.step}>
                             <div css={s.num}>
                                 <span>{index + 1}.</span>
+                                <button>삭제</button>
                             </div>
                             <div css={s.stepContent}>
-                                <textarea type="text" style={{ resize: "none" }} value={step.text} onChange={handleAddStep}></textarea>
-                                <img src={step.image} alt="" />
+                                <textarea type="text" style={{ resize: "none" }} value={step.text} placeholder="예)"  onChange={handleAddStep}></textarea>
+                                <div css={s.fic}>
+                                    <img src={camera} alt="" />
+                                </div>
                             </div>
                         </div>
                     ))}
 
                 </div>
-                
-                <div >
-                    <button onClick={addStep}>+추가</button>
+
+                <div css={s.addButton}>
+                    <button onClick={addStep}><BsPlusLg />추가</button>
                 </div>
 
                 <div css={s.title}>

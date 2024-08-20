@@ -8,8 +8,10 @@ export const layout = css`
     
     margin: 72px auto 0px auto;
 
+    padding-bottom: 100px;
+
     min-width: 1600px;
-    height: 2000px;
+    height: auto;
 
     background-color: #fcf9f6;
 
@@ -181,16 +183,102 @@ export const category = css`
     border: 1px solid #f0f0f0;
 `
 
-export const stepBody = css`
+export const ingredientCategory = css`
     display: flex;
+    flex-direction: column;
     align-items: center;
-    flex-wrap: wrap;
     justify-content: space-around;
 
     width: 1000px;
-    height: 300px;
+    height: auto;
 
     margin-top: 10px;
+    padding-bottom: 10px;
+
+    background-color: #ffffff;
+
+    border: 1px solid #f0f0f0;
+`
+
+export const ingredient = css`
+    display: flex;
+    align-self: center;
+    justify-content: center;
+
+    width: 970px;
+    height: 50px;
+    
+    margin-top: 10px;
+
+    /* border: 1px solid black; */
+`
+
+export const ingre = css`
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    width: 70%;
+    height: 50px;
+
+    input {
+        width: 200px;
+        height: 30px;
+
+        padding: 8px;
+
+        font-size: 14px;
+
+        border: none;
+        border-bottom: 1px solid #dbdbdb;
+    }
+
+    /* border: 1px solid black; */
+`
+
+export const ingreButton = css`
+    display: flex;
+    justify-content: end;
+    align-items: center;
+
+    width: 30%;
+    height: 100%;
+
+    padding-right: 10px;
+
+    button {
+        width: 50px;
+        height: 35px;
+
+        font-size: 14px;
+
+        background-color: white;
+
+        transition: background-color 0.3s ease;
+        border: 1px solid #dbdbdb;
+
+        cursor: pointer;
+
+        :hover {
+            background-color: #F05941;
+            color: #ffffff;
+        }
+    }
+
+    /* border: 1px solid black; */
+`
+
+export const stepBody = css`
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+
+    width: 1000px;
+    height: auto;
+
+    margin-top: 10px;
+    padding: 10px;
 
     background-color: #ffffff;
 
@@ -206,14 +294,18 @@ export const step = css`
     width: 480px;
     height: 230px;
 
+    margin: 5px 0px;
+
     border: 1px solid #dbdbdb;
 `
 
 export const num = css`
     display: flex;
+    align-items: center;
+    justify-content: space-between;
     
     width: 450px;
-    height: 20px;
+    height: 25px;
     
     font-size: 15px;
 
@@ -221,7 +313,26 @@ export const num = css`
         margin-left: 10px;
     }
 
-    border: 1px solid #f0f0f0;
+    button {
+        width: 50px;
+        height: 25px;
+
+        font-size: 14px;
+
+        background-color: white;
+
+        transition: background-color 0.3s ease;
+        border: 1px solid #dbdbdb;
+
+        cursor: pointer;
+
+        :hover {
+            background-color: #F05941;
+            color: #ffffff;
+        }
+    }
+
+    /* border: 1px solid #f0f0f0; */
 `
 
 export const stepContent = css`
@@ -241,18 +352,62 @@ export const stepContent = css`
         padding: 12px 16px;
 
         font-size: 14px;
-        font-weight: 700;
 
         background-color: #ffffff;
 
         border: 1px solid #f0f0f0;
     }
 
-    img {
-        width: 220px;
-        height: 180px;
+    /* border: 1px solid black; */
+`
 
-        /* border: 1px solid black; */
+export const fic = css`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 220px;
+    height: 180px;
+
+    background-color: #f0f0f0;
+
+    cursor: pointer;
+
+    border: 1px solid #f0f0f0;
+`
+
+export const addButton = css`
+    display: flex;
+    align-items: center;
+    justify-content: end;
+
+    margin-top: 10px;
+
+    width: 1000px;
+
+    button {
+        height: 40px;
+        width: 150px;
+
+        font-size: 15px;
+        font-weight: 700;
+
+        background-color: transparent;
+
+        border: 1px solid #525252;
+
+        transition: background-color 0.3s ease;
+
+        cursor: pointer;
+
+        :hover {
+            background-color: #525252;
+            color: #ffffff;
+        }
     }
 
     /* border: 1px solid black; */
