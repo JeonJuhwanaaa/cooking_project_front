@@ -7,8 +7,8 @@ import { useState } from "react";
 import { useQuery } from "react-query";
 import { BsPlusLg } from "react-icons/bs";
 import camera from "./camera.png";
-
 import { getDifficultyLevel, getFoodType, getIngredientType, getPersonnel, getSituationType, getTakeTime, getWayType } from "../../apis/options";
+import { recipeRequest } from "../../apis/recipe";
 
 
 function AddRecipePage(props) {
@@ -20,6 +20,18 @@ function AddRecipePage(props) {
     const [personnelOption, setPersonnelOption] = useState([]);
     const [takeTimeOption, setTakeTimeOption] = useState([]);
     const [difficultyLevelOption, setDifficultyLevelOption] = useState([]);
+
+    const [userId, setUserId] = useState();
+    const [recipeTitle, setRecipeTitle] = useState();
+    const [recipeIntro, setRecipeIntro] = useState();
+    const [foodTypeId, setFoodTypeId] = useState();
+    const [situationTypeId, setSituationTypeId] = useState();
+    const [ingredientTypeId, setIngredientTypeId] = useState();
+    const [wayTypeId, setWayTypeId] = useState();
+    const [takeTimeId, setTakeTimeId] = useState();
+    const [personnelId, setPersonnelId] = useState();
+    const [difficultyLevelId, setDifficultyLevelId] = useState();
+    const [recipeTip, setRecipeTip] = useState();
 
 
     const selectStyle = {
@@ -215,6 +227,61 @@ function AddRecipePage(props) {
         ]);
     }
 
+    // 등록하기 버튼 ------------------------------------------------------
+    const handleRegistrationButton = () => {
+        recipeRequest({
+            userId,
+            recipeTitle,
+            recipeIntro,
+            foodTypeId,
+            situationTypeId,
+            ingredientTypeId,
+            wayTypeId,
+            takeTimeId,
+            personnelId,
+            difficultyLevelId,
+            recipeTip
+        }).then(response => {
+            alert("레시피가 등록되었습니다.");
+        }).catch(error => {
+            alert("등록 실패!");
+        });
+    }
+
+    const handleRecipeTitleOnChange = (e) => {
+        setRecipeTitle(() => e.target.value);
+    }
+    const handleRecipeIntroOnChange = (e) => {
+        setRecipeIntro(() => e.target.value);
+    }
+    const handleRecipeTipOnChange = (e) => {
+        setRecipeTip(() => e.target.value);
+    }
+
+    const handleFoodTypeIdOnChange = (foodTypeId) => {
+        setFoodTypeId(() => foodTypeId.value);
+    }
+    const handleSituationTypeIdOnChange = (situationTypeId) => {
+        setSituationTypeId(() => situationTypeId.value);
+    }
+    const handleIngredientTypeIdOnChange = (ingredientTypeId) => {
+        setIngredientTypeId(() => ingredientTypeId.value);
+    }
+    const handleWayTypeIdOnChange = (wayTypeId) => {
+        setWayTypeId(() => wayTypeId.value);
+    }
+
+    const handlePersonnelIdOnChange = (personnelId) => {
+        setPersonnelId(() => personnelId.value);
+    }
+    const handleTakeTimeIdOnChange = (takeTimeId) => {
+        setTakeTimeId(() => takeTimeId.value);
+    }
+    const handleDifficultyLevelIdOnChange = (difficultyLevelId) => {
+        setDifficultyLevelId(() => difficultyLevelId.value);
+    }
+
+
 
     return (
         <div css={s.layout}>
@@ -222,40 +289,40 @@ function AddRecipePage(props) {
 
                 <div css={s.head}>
                     <span>레시피 등록</span>
-                    <button>등록하기</button>
+                    <button onClick={handleRegistrationButton}>등록하기</button>
                 </div>
 
                 <div css={s.title}>
                     <span>레시피 제목을 정해주세요. (최대 30자)</span>
                 </div>
                 <div css={s.inputTitle}>
-                    <input type="text" maxLength={30} placeholder="예) 참치 넣은 김치찌개 끊이기"/>
+                    <input type="text" maxLength={30} placeholder="예) 참치 넣은 김치찌개 끊이기" value={recipeTitle} onChange={handleRecipeTitleOnChange}/>
                 </div>
 
                 <div css={s.title}>
                     <span>요리를 소개해주세요. (최대 200자)</span>
                 </div>
                 <div css={s.infoRecipe}>
-                    <textarea type="text" maxLength={200} style={{resize: "none"}} placeholder="예) 참치 김치찌개는 깊은 김치 맛에 고소한 참치를 더해 간편하면서도 든든한 한국식 찌개 요리입니다." />
+                    <textarea type="text" maxLength={200} style={{resize: "none"}} placeholder="예) 참치 김치찌개는 깊은 김치 맛에 고소한 참치를 더해 간편하면서도 든든한 한국식 찌개 요리입니다." value={recipeIntro} onChange={handleRecipeIntroOnChange} />
                 </div>
 
                 <div css={s.categoryTitle}>
                     <span>카테고리를 정해주세요.</span>
                 </div>
                 <div css={s.category}>
-                    <Select options={foodTypeOption} placeholder="음식 별" styles={selectStyle}></Select>
-                    <Select options={situationTypeOption} placeholder="상황 별" styles={selectStyle}></Select>
-                    <Select options={ingredientTypeOption} placeholder="재료 별" styles={selectStyle}></Select>
-                    <Select options={wayTypeOption} placeholder="조리 별" styles={selectStyle}></Select>
+                    <Select options={foodTypeOption} placeholder="음식 별" styles={selectStyle} onChange={handleFoodTypeIdOnChange}></Select>
+                    <Select options={situationTypeOption} placeholder="상황 별" styles={selectStyle} onChange={handleSituationTypeIdOnChange} ></Select>
+                    <Select options={ingredientTypeOption} placeholder="재료 별" styles={selectStyle} onChange={handleIngredientTypeIdOnChange}></Select>
+                    <Select options={wayTypeOption} placeholder="조리 별" styles={selectStyle} onChange={handleWayTypeIdOnChange}></Select>
                 </div>
 
                 <div css={s.title}>
                     <span>요리 정보</span>
                 </div>
                 <div css={s.category}>
-                    <Select options={personnelOption} placeholder="사람 수" styles={selectStyle}></Select>
-                    <Select options={takeTimeOption} placeholder="소요 시간" styles={selectStyle}></Select>
-                    <Select options={difficultyLevelOption} placeholder="난이도" styles={selectStyle}></Select>
+                    <Select options={personnelOption} placeholder="사람 수" styles={selectStyle} onChange={handlePersonnelIdOnChange}></Select>
+                    <Select options={takeTimeOption} placeholder="소요 시간" styles={selectStyle} onChange={handleTakeTimeIdOnChange}></Select>
+                    <Select options={difficultyLevelOption} placeholder="난이도" styles={selectStyle} onChange={handleDifficultyLevelIdOnChange}></Select>
                 </div>
 
                 <div css={s.title}>
@@ -315,7 +382,7 @@ function AddRecipePage(props) {
                                 <button>삭제</button>
                             </div>
                             <div css={s.stepContent}>
-                                <textarea type="text" style={{ resize: "none" }} value={step.text} placeholder="예)"  onChange={handleAddStep}></textarea>
+                                <textarea type="text" style={{ resize: "none" }} placeholder="예)" ></textarea>
                                 <div css={s.fic}>
                                     <img src={camera} alt="" />
                                 </div>
@@ -331,12 +398,11 @@ function AddRecipePage(props) {
 
                 <div css={s.title}>
                     <span>요리 팁</span>
+                    <span>(선택사항)</span>
                 </div>
                 <div css={s.infoRecipe}>
-                    <textarea type="text" maxLength={200} style={{resize: "none"}} placeholder="예) 처음에 참치 기름으로 김치를 먼저 볶아주면 좀 더 풍미있는 김치찌개를 만들 수 있어요." />
+                    <textarea type="text" maxLength={200} style={{resize: "none"}} placeholder="예) 처음에 참치 기름으로 김치를 먼저 볶아주면 좀 더 풍미있는 김치찌개를 만들 수 있어요." value={recipeTip} onChange={handleRecipeTipOnChange}/>
                 </div>
-
-                
 
             </div>
         </div>

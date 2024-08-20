@@ -8,6 +8,7 @@ import { PiCookingPotThin } from "react-icons/pi";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { getFoodType } from "../../apis/options";
+import { RxBorderSolid } from "react-icons/rx";
 
 function MyPage(props) {
 
@@ -45,8 +46,8 @@ function MyPage(props) {
                     </div>
                     <div css={s.line}></div>
                     <div css={s.menu}>
-                        <a href="">-- 회원정보 수정</a>
-                        <a href="">-- 나의 레시피</a>
+                        <a href=""><RxBorderSolid /> 회원정보 수정</a>
+                        <a href=""><RxBorderSolid /> 나의 레시피</a>
                     </div>
                     <div css={s.line}></div>
                     <div css={s.logout}>
