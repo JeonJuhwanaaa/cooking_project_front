@@ -7,3 +7,7 @@ export const recipeRequest = async(data) => {
 export const ingredientRequest = async(data) => {
     return await instance.post("/recipe/ingredient", data);
 }
+
+export const seasoningRequest = async(data) => {
+    return await instance.post("/recipe/seasoning", data);
+}

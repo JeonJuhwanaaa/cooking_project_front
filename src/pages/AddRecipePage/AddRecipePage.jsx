@@ -8,7 +8,7 @@ import { useQuery } from "react-query";
 import { BsPlusLg } from "react-icons/bs";
 import camera from "./camera.png";
 import { getDifficultyLevel, getFoodType, getIngredientType, getPersonnel, getSituationType, getTakeTime, getWayType } from "../../apis/options";
-import { ingredientRequest, recipeRequest } from "../../apis/recipe";
+import { ingredientRequest, recipeRequest, seasoningRequest } from "../../apis/recipe";
 
 
 function AddRecipePage(props) {
@@ -260,26 +260,33 @@ function AddRecipePage(props) {
 
     // 등록하기 버튼 ------------------------------------------------------
     const handleRegistrationButton = () => {
-        // recipeRequest({
-        //     userId,
-        //     recipeTitle,
-        //     recipeIntro,
-        //     foodTypeId,
-        //     situationTypeId,
-        //     ingredientTypeId,
-        //     wayTypeId,
-        //     takeTimeId,
-        //     personnelId,
-        //     difficultyLevelId,
-        //     recipeTip
-        // }).then(response => {
-        //     alert("레시피가 등록되었습니다.");
-        // }).catch(error => {
-        //     alert("등록 실패!");
-        // });
-
         const ingredientName = ingredients.map(item => item.ingredientName);
         const ingredientState = ingredients.map(item => item.ingredientState);
+    
+        const seasoningName = seasonings.map(item => item.seasoningName);
+        const seasoningState = seasonings.map(item => item.seasoningState);
+
+        // ----------------------------------------------- userId 값 수정하기 -----------------------------------------
+
+        recipeRequest({
+            userId: 1,
+            recipeTitle,
+            recipeIntro,
+            foodTypeId,
+            situationTypeId,
+            ingredientTypeId,
+            wayTypeId,
+            takeTimeId,
+            personnelId,
+            difficultyLevelId,
+            recipeTip
+        }).then(response => {
+            alert("레시피가 등록되었습니다.");
+        }).catch(error => {
+            alert("레시피 등록 실패");
+        });
+
+        // ----------------------------------------------- recipeId 값 수정하기 -----------------------------------------
     
         ingredientRequest({
             recipeId: 1,
@@ -288,7 +295,19 @@ function AddRecipePage(props) {
         }).then(response => {
             alert("재료 등록");
         }).catch(error => {
-            alert("실패");
+            alert("재료 등록 실패");
+        });
+
+        // ----------------------------------------------- recipeId 값 수정하기 -----------------------------------------
+
+        seasoningRequest({
+            recipeId: 1,
+            seasoningName,
+            seasoningState
+        }).then(response => {
+            alert("양념 등록");
+        }).catch(error => {
+            alert("양념 등록 실패");
         });
     }
 
@@ -386,6 +405,7 @@ function AddRecipePage(props) {
                             </div>
                         </div>
                     ))}
+                    
                 </div>
                 <div css={s.addButton}>
                     <button onClick={addIngredient}><BsPlusLg />추가</button>
