@@ -38,8 +38,8 @@ function AddRecipePage(props) {
         {ingredientName: "", ingredientState: ""}
     ]);
     const [seasonings, setSeasonings] = useState([
-        {text:"", text:""},
-        {text:"", text:""}
+        {seasoningName:"", seasoningState:""},
+        {seasoningName:"", seasoningState:""}
     ]);
     const [steps, setSteps] = useState([
         {id: 1, text: "", image: ""},
@@ -400,8 +400,8 @@ function AddRecipePage(props) {
                     {seasonings.map((seasoning, index) => (
                         <div css={s.ingredient}>
                             <div key={seasoning.id} css={s.ingre}>
-                                <input type="text" placeholder="예) 설탕" value={seasoning.text} onChange={(e) => handleAddSeasoning(index, "text", e.target.value)}/>
-                                <input type="text" placeholder="예) 1 T" value={seasoning.text1} onChange={(e) => handleAddSeasoning(index, "text1", e.target.value)}/>
+                                <input type="text" placeholder="예) 설탕" value={seasoning.seasoningName} onChange={(e) => handleAddSeasoning(index, "seasoningName", e.target.value)}/>
+                                <input type="text" placeholder="예) 1 T" value={seasoning.seasoningState} onChange={(e) => handleAddSeasoning(index, "seasoningState", e.target.value)}/>
                             </div>
                             <div css={s.ingreButton}>
                                 <button onClick={() => handleDeleteSeasoning(index)}>삭제</button>
