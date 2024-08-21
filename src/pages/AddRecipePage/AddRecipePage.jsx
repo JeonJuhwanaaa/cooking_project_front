@@ -33,6 +33,18 @@ function AddRecipePage(props) {
     const [difficultyLevelId, setDifficultyLevelId] = useState();
     const [recipeTip, setRecipeTip] = useState();
 
+    const [ingredients, setIngredient] = useState([
+        {text:"", text:""},
+        {text:"", text:""}
+    ]);
+    const [seasonings, setSeasonings] = useState([
+        {text:"", text:""},
+        {text:"", text:""}
+    ]);
+    const [steps, setSteps] = useState([
+        {id: 1, text: "", image: ""},
+        {id: 2, text: "", image: ""}
+    ]);
 
     const selectStyle = {
         control: baseStyles => ({
@@ -170,12 +182,64 @@ function AddRecipePage(props) {
         }
     );
 
-    // 요리 순서 ------------------------------------------------------
-    const [steps, setSteps] = useState([
-        {id: 1, text: "", image: ""},
-        {id: 2, text: "", image: ""}
-    ]);
+    // 재료 ------------------------------------------------------
+    const handleAddIngredient = (index, field, value) => {
+        const newIngredients = ingredients.map((ingredient, i) => {
+            if (i === index) {
+                return {
+                    ...ingredient,
+                    [field]: value
+                };
+            }
+            return ingredient;
+        });
+        console.log(newIngredients);
+        setIngredient(newIngredients);
+    };
 
+    const addIngredient = () => {
+        setIngredient([
+            ...ingredients,
+            {text: "", text: ""}
+        ]);
+    }
+
+    const handleDeleteIngredient = (index) => {
+        // console.log(index);
+        const newIngredients = ingredients.filter((_,i) => i !== index);
+        setIngredient(newIngredients);
+    }
+
+    // 양념 ------------------------------------------------------
+    const handleAddSeasoning = (index, field, value) => {
+        const newSeasonings = seasonings.map((seasoning, i) => {
+            if (i === index) {
+                return {
+                    ...seasoning,
+                    [field]: value
+                };
+            }
+            return seasoning;
+        });
+        console.log(newSeasonings);
+        setSeasonings(newSeasonings);
+    };
+
+    const addSeasoning = () => {
+        setSeasonings([
+            ...seasonings,
+            {text: "", text: ""}
+        ]);
+    }
+
+    const handleDeleteSeasoning = (index) => {
+        // console.log(index);
+        const newSeasonings = seasonings.filter((_,i) => i !== index);
+        setSeasonings(newSeasonings);
+    }
+
+    
+    // 요리 순서 ------------------------------------------------------
     const handleAddStep = (e, index) => {
         const newSteps = [...steps];
         newSteps[index].text = e.target.value;
@@ -189,42 +253,9 @@ function AddRecipePage(props) {
         ]);
     };
 
-    // 재료 ------------------------------------------------------
-    const [ingredients, setIngredient] = useState([
-        {text:"", text:""},
-        {text:"", text:""}
-    ]);
-
-    const handleAddIngredient = (e, index) => {
-        const newIngredients = [...ingredients];
-        newIngredients[index].text = e.target.value;
-        setIngredient(newIngredients);
-    }
-
-    const addIngredient = () => {
-        setIngredient([
-            ...ingredients,
-            {text: "", text: ""}
-        ]);
-    }
-
-    // 양념 ------------------------------------------------------
-    const [seasonings, setSeasoning] = useState([
-        {text:"", text:""},
-        {text:"", text:""}
-    ]);
-
-    const handleAddSeasoning = (e, index) => {
-        const newSeasonings = [...seasonings];
-        newSeasonings[index].text = e.target.value;
-        setSeasoning(newSeasonings);
-    }
-
-    const addSeasoning = () => {
-        setSeasoning([
-            ...seasonings,
-            {text: "", text: ""}
-        ]);
+    const handleDeleteStep = (index) => {
+        const newSteps = steps.filter((_,i) => i !== index);
+        setSteps(newSteps);
     }
 
     // 등록하기 버튼 ------------------------------------------------------
@@ -240,7 +271,9 @@ function AddRecipePage(props) {
             takeTimeId,
             personnelId,
             difficultyLevelId,
-            recipeTip
+            recipeTip,
+            ingredients,
+            seasonings
         }).then(response => {
             alert("레시피가 등록되었습니다.");
         }).catch(error => {
@@ -330,14 +363,14 @@ function AddRecipePage(props) {
                 </div>
                 <div css={s.ingredientCategory}>
 
-                    {ingredients.map((ingredient) => (
-                        <div css={s.ingredient}>
-                            <div key={ingredient.id} css={s.ingre}>
-                                <input type="text" placeholder="예)"/>
-                                <input type="text" placeholder="예)"/>
+                    {ingredients.map((ingredient, index) => (
+                        <div key={index} css={s.ingredient}>
+                            <div css={s.ingre}>
+                                <input type="text" placeholder="예) 참치" value={ingredient.text} onChange={(e) => handleAddIngredient(index, "text", e.target.value)} />
+                                <input type="text" placeholder="예) 1 캔" value={ingredient.text1} onChange={(e) => handleAddIngredient(index, "text1", e.target.value)} />
                             </div>
                             <div css={s.ingreButton}>
-                                <button>삭제</button>
+                                <button onClick={() => handleDeleteIngredient(index)}>삭제</button>
                             </div>
                         </div>
                     ))}
@@ -352,14 +385,14 @@ function AddRecipePage(props) {
 
                 <div css={s.ingredientCategory}>
 
-                    {seasonings.map((seasoning) => (
+                    {seasonings.map((seasoning, index) => (
                         <div css={s.ingredient}>
                             <div key={seasoning.id} css={s.ingre}>
-                                <input type="text" placeholder="예)"/>
-                                <input type="text" placeholder="예)"/>
+                                <input type="text" placeholder="예) 설탕" value={seasoning.text} onChange={(e) => handleAddSeasoning(index, "text", e.target.value)}/>
+                                <input type="text" placeholder="예) 1 T" value={seasoning.text1} onChange={(e) => handleAddSeasoning(index, "text1", e.target.value)}/>
                             </div>
                             <div css={s.ingreButton}>
-                                <button>삭제</button>
+                                <button onClick={() => handleDeleteSeasoning(index)}>삭제</button>
                             </div>
                         </div>
                     ))}
@@ -379,7 +412,7 @@ function AddRecipePage(props) {
                         <div key={step.id} css={s.step}>
                             <div css={s.num}>
                                 <span>{index + 1}.</span>
-                                <button>삭제</button>
+                                <button onClick={() => handleDeleteStep(index)} >삭제</button>
                             </div>
                             <div css={s.stepContent}>
                                 <textarea type="text" style={{ resize: "none" }} placeholder="예)" ></textarea>
