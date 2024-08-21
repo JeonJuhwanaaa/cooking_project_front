@@ -3,12 +3,12 @@
 import { useNavigate } from "react-router-dom";
 import * as s from "./style";
 import Select from "react-select";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { BsPlusLg } from "react-icons/bs";
 import camera from "./camera.png";
 import { getDifficultyLevel, getFoodType, getIngredientType, getPersonnel, getSituationType, getTakeTime, getWayType } from "../../apis/options";
-import { recipeRequest } from "../../apis/recipe";
+import { ingredientRequest, recipeRequest } from "../../apis/recipe";
 
 
 function AddRecipePage(props) {
@@ -34,8 +34,8 @@ function AddRecipePage(props) {
     const [recipeTip, setRecipeTip] = useState();
 
     const [ingredients, setIngredient] = useState([
-        {text:"", text:""},
-        {text:"", text:""}
+        {ingredientName: "", ingredientState: ""},
+        {ingredientName: "", ingredientState: ""}
     ]);
     const [seasonings, setSeasonings] = useState([
         {text:"", text:""},
@@ -123,7 +123,7 @@ function AddRecipePage(props) {
                 // console.log(response);
                 setWayTypeOption(() => response.data.map(wayType => {
                     return {
-                        valus: wayType.wayTypeId,
+                        value: wayType.wayTypeId,
                         label: wayType.wayType
                     }
                 }));
@@ -260,24 +260,35 @@ function AddRecipePage(props) {
 
     // 등록하기 버튼 ------------------------------------------------------
     const handleRegistrationButton = () => {
-        recipeRequest({
-            userId,
-            recipeTitle,
-            recipeIntro,
-            foodTypeId,
-            situationTypeId,
-            ingredientTypeId,
-            wayTypeId,
-            takeTimeId,
-            personnelId,
-            difficultyLevelId,
-            recipeTip,
-            ingredients,
-            seasonings
+        // recipeRequest({
+        //     userId,
+        //     recipeTitle,
+        //     recipeIntro,
+        //     foodTypeId,
+        //     situationTypeId,
+        //     ingredientTypeId,
+        //     wayTypeId,
+        //     takeTimeId,
+        //     personnelId,
+        //     difficultyLevelId,
+        //     recipeTip
+        // }).then(response => {
+        //     alert("레시피가 등록되었습니다.");
+        // }).catch(error => {
+        //     alert("등록 실패!");
+        // });
+
+        const ingredientName = ingredients.map(item => item.ingredientName);
+        const ingredientState = ingredients.map(item => item.ingredientState);
+    
+        ingredientRequest({
+            recipeId: 1,
+            ingredientName,
+            ingredientState
         }).then(response => {
-            alert("레시피가 등록되었습니다.");
+            alert("재료 등록");
         }).catch(error => {
-            alert("등록 실패!");
+            alert("실패");
         });
     }
 
@@ -301,6 +312,7 @@ function AddRecipePage(props) {
         setIngredientTypeId(() => ingredientTypeId.value);
     }
     const handleWayTypeIdOnChange = (wayTypeId) => {
+        // console.log(wayTypeId.value);
         setWayTypeId(() => wayTypeId.value);
     }
 
@@ -366,8 +378,8 @@ function AddRecipePage(props) {
                     {ingredients.map((ingredient, index) => (
                         <div key={index} css={s.ingredient}>
                             <div css={s.ingre}>
-                                <input type="text" placeholder="예) 참치" value={ingredient.text} onChange={(e) => handleAddIngredient(index, "text", e.target.value)} />
-                                <input type="text" placeholder="예) 1 캔" value={ingredient.text1} onChange={(e) => handleAddIngredient(index, "text1", e.target.value)} />
+                                <input type="text" placeholder="예) 참치" value={ingredient.ingredientName} onChange={(e) => handleAddIngredient(index, "ingredientName", e.target.value)} />
+                                <input type="text" placeholder="예) 1 캔" value={ingredient.ingredientState} onChange={(e) => handleAddIngredient(index, "ingredientState", e.target.value)} />
                             </div>
                             <div css={s.ingreButton}>
                                 <button onClick={() => handleDeleteIngredient(index)}>삭제</button>
