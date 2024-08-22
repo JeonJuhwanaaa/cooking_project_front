@@ -285,7 +285,7 @@ export const stepBody = css`
     border: 1px solid #f0f0f0;
 `
 
-export const step = css`
+export const recipeStep = css`
     display: flex;
     flex-direction: column;
     align-items: center;

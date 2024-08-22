@@ -193,7 +193,7 @@ function AddRecipePage(props) {
             }
             return ingredient;
         });
-        console.log(newIngredients);
+        // console.log(newIngredients);
         setIngredient(newIngredients);
     };
 
@@ -221,7 +221,7 @@ function AddRecipePage(props) {
             }
             return seasoning;
         });
-        console.log(newSeasonings);
+        // console.log(newSeasonings);
         setSeasonings(newSeasonings);
     };
 
@@ -258,16 +258,16 @@ function AddRecipePage(props) {
         setSteps(newSteps);
     }
 
-    // 등록하기 버튼 ------------------------------------------------------
+    // ------------------------------------------------------- 등록하기 버튼 ------------------------------------------------------
     const handleRegistrationButton = () => {
         const ingredientName = ingredients.map(item => item.ingredientName);
         const ingredientState = ingredients.map(item => item.ingredientState);
     
         const seasoningName = seasonings.map(item => item.seasoningName);
         const seasoningState = seasonings.map(item => item.seasoningState);
-
+    
         // ----------------------------------------------- userId 값 수정하기 -----------------------------------------
-
+    
         recipeRequest({
             userId: 1,
             recipeTitle,
@@ -285,30 +285,41 @@ function AddRecipePage(props) {
         }).catch(error => {
             alert("레시피 등록 실패");
         });
-
-        // ----------------------------------------------- recipeId 값 수정하기 -----------------------------------------
     
-        ingredientRequest({
-            recipeId: 1,
-            ingredientName,
-            ingredientState
-        }).then(response => {
-            alert("재료 등록");
-        }).catch(error => {
-            alert("재료 등록 실패");
-        });
+        // ----------------------------------------------- 재료, 양념 등록 로직 -----------------------------------------
+    
+        if (ingredientName.includes(null) || 
+            ingredientState.includes(null) || 
+            ingredientName.includes("") || 
+            ingredientState.includes("") ||
+            seasoningName.includes(null) ||
+            seasoningState.includes(null) ||
+            seasoningName.includes("") ||
+            seasoningState.includes("")
+        ) {
+            alert("재료 또는 양념의 빈 칸 없이 입력해주세요.");
+        } else {
+            ingredientRequest({
+                recipeId: 1,
+                ingredientName,
+                ingredientState
+            }).then(response => {
+                alert("재료 등록");
+            }).catch(error => {
+                alert("재료 등록 실패");
+            });
 
-        // ----------------------------------------------- recipeId 값 수정하기 -----------------------------------------
+            seasoningRequest({
+                recipeId: 1,
+                seasoningName,
+                seasoningState
+            }).then(response => {
+                alert("양념 등록");
+            }).catch(error => {
+                alert("양념 등록 실패");
+            });
+        }
 
-        seasoningRequest({
-            recipeId: 1,
-            seasoningName,
-            seasoningState
-        }).then(response => {
-            alert("양념 등록");
-        }).catch(error => {
-            alert("양념 등록 실패");
-        });
     }
 
     const handleRecipeTitleOnChange = (e) => {
@@ -405,7 +416,7 @@ function AddRecipePage(props) {
                             </div>
                         </div>
                     ))}
-                    
+
                 </div>
                 <div css={s.addButton}>
                     <button onClick={addIngredient}><BsPlusLg />추가</button>
@@ -437,11 +448,10 @@ function AddRecipePage(props) {
                 <div css={s.title}>
                     <span>요리 순서</span>
                 </div>
-
                 <div css={s.stepBody}>
 
                     {steps.map((step, index) => (
-                        <div key={step.id} css={s.step}>
+                        <div key={step.id} css={s.recipeStep}>
                             <div css={s.num}>
                                 <span>{index + 1}.</span>
                                 <button onClick={() => handleDeleteStep(index)} >삭제</button>
@@ -449,7 +459,10 @@ function AddRecipePage(props) {
                             <div css={s.stepContent}>
                                 <textarea type="text" style={{ resize: "none" }} placeholder="예)" ></textarea>
                                 <div css={s.fic}>
-                                    <img src={camera} alt="" />
+                                    <input type="file" id={`file-input-${index}`}/>
+                                    <label htmlFor={`file-input-${index}`}>
+                                        <img src={step.image || camera} alt="" />
+                                    </label>
                                 </div>
                             </div>
                         </div>
