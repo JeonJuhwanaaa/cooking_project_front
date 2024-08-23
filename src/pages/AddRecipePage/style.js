@@ -29,6 +29,98 @@ export const recipe = css`
     /* border: 1px solid black; */
 `
 
+export const mainImg = css`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 1000px;
+    height: 400px;
+
+    margin-top: 10px;
+
+    /* border: 1px solid black; */
+`
+
+export const square = css`
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    
+    width: 490px;
+    height: 400px;
+
+    /* border: 1px solid black; */
+`
+
+export const shortTitle = css`
+    display: flex;
+    align-items: center;
+
+    width: 490px;
+    height: 30px;
+
+    span {
+        margin-left: 10px;
+    }
+
+    color: #114232;
+    font-weight: 700;
+    background-color: #E8EFCF;
+
+    font-size: 14px;
+
+    /* border: 1px solid black; */
+`
+
+export const selectImg = css`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-top: 10px;
+
+    width: 490px;
+    height: 360px;
+
+    /* border: 1px solid black; */
+`
+
+export const Img = css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 490px;
+    height: 355px;
+
+    background-color: #dbdbdb;
+
+    /* border: 1px solid black; */
+`
+
+export const infoRecipe = css`
+    display: flex;
+
+    margin-top: 10px;
+
+    textarea {
+        width: 500px;
+        height: 330px;
+
+        padding: 12px 16px;
+
+        font-size: 14px;
+        font-weight: 700;
+
+        background-color: #ffffff;
+
+        border: 1px solid #f0f0f0;
+    }
+
+    /* border: 1px solid black; */
+`
+
 export const head = css`
     display: flex;
     justify-content: space-between;
@@ -103,35 +195,11 @@ export const inputTitle = css`
     width: 1000px;
     height: 50px;
 
+    margin-top: 5px;
+
     input {
         width: 1000px;
         height: 15px;
-
-        padding: 12px 16px;
-
-        font-size: 14px;
-        font-weight: 700;
-
-        background-color: #ffffff;
-
-        border: 1px solid #f0f0f0;
-    }
-
-    /* border: 1px solid black; */
-`
-
-export const infoRecipe = css`
-    display: flex;
-    align-items: center;
-
-    width: 1000px;
-    height: 50px;
-
-    margin-top: 20px;
-
-    textarea {
-        width: 1000px;
-        height: 50px;
 
         padding: 12px 16px;
 
@@ -376,6 +444,19 @@ export const fic = css`
     background-color: #f0f0f0;
 
     cursor: pointer;
+
+    input[type="file"] {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 220px;
+        height: 180px;
+
+        color: transparent;
+
+        border: 1px solid black;
+    }
 
     border: 1px solid #f0f0f0;
 `

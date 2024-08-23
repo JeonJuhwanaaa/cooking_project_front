@@ -3,7 +3,7 @@
 import { useNavigate } from "react-router-dom";
 import * as s from "./style";
 import Select from "react-select";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useQuery } from "react-query";
 import { BsPlusLg } from "react-icons/bs";
 import camera from "./camera.png";
@@ -33,6 +33,8 @@ function AddRecipePage(props) {
     const [difficultyLevelId, setDifficultyLevelId] = useState();
     const [recipeTip, setRecipeTip] = useState();
 
+    const fileRef = useRef();
+
     const [ingredients, setIngredient] = useState([
         {ingredientName: "", ingredientState: ""},
         {ingredientName: "", ingredientState: ""}
@@ -41,10 +43,7 @@ function AddRecipePage(props) {
         {seasoningName:"", seasoningState:""},
         {seasoningName:"", seasoningState:""}
     ]);
-    const [steps, setSteps] = useState([
-        {id: 1, text: "", image: ""},
-        {id: 2, text: "", image: ""}
-    ]);
+
 
     const selectStyle = {
         control: baseStyles => ({
@@ -240,6 +239,12 @@ function AddRecipePage(props) {
 
     
     // 요리 순서 ------------------------------------------------------
+
+    const [steps, setSteps] = useState([
+        {id: 1, text: "", image: ""},
+        {id: 2, text: "", image: ""}
+    ]);
+
     const handleAddStep = (e, index) => {
         const newSteps = [...steps];
         newSteps[index].text = e.target.value;
@@ -253,9 +258,29 @@ function AddRecipePage(props) {
         ]);
     };
 
+    const handleImageChange = (index, e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const newSteps = [...steps];
+            newSteps[index].image = URL.createObjectURL(file);  // 선택된 파일의 URL 생성
+            setSteps(newSteps);
+        }
+    };
+
+
     const handleDeleteStep = (index) => {
         const newSteps = steps.filter((_,i) => i !== index);
         setSteps(newSteps);
+    }
+
+    const [mainImg, setMainImg] = useState(null);
+
+    const handleSelectFicture = (e) => {
+        const file = e.target.files[0]; // 선택한 파일의 첫 번째 파일 객체를 가져옴
+        if (file) {
+          const fileURL = URL.createObjectURL(file); // 파일의 URL 생성
+          setMainImg(fileURL);
+        }
     }
 
     // ------------------------------------------------------- 등록하기 버튼 ------------------------------------------------------
@@ -374,12 +399,32 @@ function AddRecipePage(props) {
                     <input type="text" maxLength={30} placeholder="예) 참치 넣은 김치찌개 끊이기" value={recipeTitle} onChange={handleRecipeTitleOnChange}/>
                 </div>
 
+                <div css={s.mainImg}>
+                    <div css={s.square}>
+                        <div css={s.shortTitle}>
+                            <span>메인 사진을 올려주세요.</span>
+                        </div>
+                        <div css={s.selectImg}>
+                            <input type="file" style={{display: "none"}} onChange={handleSelectFicture} ref={fileRef}/>
+                            <img css={s.Img} src={mainImg} alt="" onClick={() => fileRef.current.click()} />
+                        </div>
+                    </div>
+
+                    <div css={s.square}>
+                        <div css={s.shortTitle}>
+                            <span>요리를 소개해주세요.(최대 200자)</span>
+                        </div>
+                        <div css={s.infoRecipe}>
+                            <textarea type="text" maxLength={200} style={{resize: "none"}} placeholder="예) 참치 김치찌개는 깊은 김치 맛에 고소한 참치를 더해 간편하면서도 든든한 한국식 찌개 요리입니다." value={recipeIntro} onChange={handleRecipeIntroOnChange} />
+                        </div>
+                    </div>
+                </div>
+
+
                 <div css={s.title}>
                     <span>요리를 소개해주세요. (최대 200자)</span>
                 </div>
-                <div css={s.infoRecipe}>
-                    <textarea type="text" maxLength={200} style={{resize: "none"}} placeholder="예) 참치 김치찌개는 깊은 김치 맛에 고소한 참치를 더해 간편하면서도 든든한 한국식 찌개 요리입니다." value={recipeIntro} onChange={handleRecipeIntroOnChange} />
-                </div>
+
 
                 <div css={s.categoryTitle}>
                     <span>카테고리를 정해주세요.</span>
@@ -459,10 +504,8 @@ function AddRecipePage(props) {
                             <div css={s.stepContent}>
                                 <textarea type="text" style={{ resize: "none" }} placeholder="예)" ></textarea>
                                 <div css={s.fic}>
-                                    <input type="file" id={`file-input-${index}`}/>
-                                    <label htmlFor={`file-input-${index}`}>
-                                        <img src={step.image || camera} alt="" />
-                                    </label>
+                                    <input type="file" onChange={(e) => handleImageChange(index, e)}/>
+                                    <img src={step.image} alt="" style={{ maxWidth: "200px", marginTop: "10px" }} />
                                 </div>
                             </div>
                         </div>
