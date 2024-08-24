@@ -36,6 +36,7 @@ function AddRecipePage(props) {
     const [isMainSelect, setIsMainSelect] = useState(false);
 
     const fileRef = useRef();
+    const stepRef = useRef([]);
 
     const [ingredients, setIngredient] = useState([
         {ingredientName: "", ingredientState: ""},
@@ -260,14 +261,18 @@ function AddRecipePage(props) {
         ]);
     };
 
-    const handleImageChange = (index, e) => {
-        const file = e.target.files[0];
+    const handleImageChange = (index, event) => {
+        const file = event.target.files[0];
         if (file) {
+          const reader = new FileReader();
+          reader.onloadend = () => {
             const newSteps = [...steps];
-            newSteps[index].image = URL.createObjectURL(file);  // 선택된 파일의 URL 생성
+            newSteps[index].image = reader.result;
             setSteps(newSteps);
+          };
+          reader.readAsDataURL(file);
         }
-    };
+      };
 
 
     const handleDeleteStep = (index) => {
@@ -275,12 +280,14 @@ function AddRecipePage(props) {
         setSteps(newSteps);
     }
 
+    // ---------------------------------------------------- 메인요리 사진 --------------------------------------------------
+
     const [mainFic, setMainFic] = useState(null);
 
     const handleSelectFicture = (e) => {
-        const file = e.target.files[0]; // 선택한 파일의 첫 번째 파일 객체를 가져옴
+        const file = e.target.files[0];
         if (file) {
-          const fileURL = URL.createObjectURL(file); // 파일의 URL 생성
+          const fileURL = URL.createObjectURL(file);
           setMainFic(fileURL);
           if(mainFic !== "") {
             setIsMainSelect(true);
@@ -509,13 +516,19 @@ function AddRecipePage(props) {
                         <div key={step.id} css={s.recipeStep}>
                             <div css={s.num}>
                                 <span>{index + 1}.</span>
-                                <button onClick={() => handleDeleteStep(index)} >삭제</button>
+                                <button onClick={() => handleDeleteStep(index)}>삭제</button>
                             </div>
                             <div css={s.stepContent}>
-                                <textarea type="text" style={{ resize: "none" }} placeholder="예)" ></textarea>
-                                <div css={s.fic}>
-                                    <input type="file" onChange={(e) => handleImageChange(index, e)}/>
-                                    <img src={step.image} alt="" style={{ maxWidth: "200px", marginTop: "10px" }} />
+                                <textarea type="text" style={{ resize: 'none' }} placeholder="예)" value={step.text} onChange={(e) => handleAddStep(e, index)} ></textarea>
+                                <div css={s.fic} onClick={() => stepRef.current[index]?.click()}>
+                                    <input type="file" style={{ display: 'none' }} onChange={(e) => handleImageChange(index, e)} ref={(el) => (stepRef.current[index] = el)} />
+                                    {
+                                        step.image 
+                                        ? 
+                                        (<img css={s.stepImg} src={step.image} alt="" />) 
+                                        : 
+                                        (<img css={s.stepEmptyImg} src={camera} alt="" />)
+                                    }
                                 </div>
                             </div>
                         </div>

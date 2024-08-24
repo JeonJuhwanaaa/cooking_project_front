@@ -94,9 +94,20 @@ export const Img = css`
     width: 490px;
     height: 355px;
 
+    border: 1px solid #dbdbdb;
+`
+
+export const stepImg = css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 220px;
+    height: 180px;
+
     background-color: #dbdbdb;
 
-    border: 1px solid #f0f0f0;
+    /* border: 1px solid black; */
 `
 
 export const emptyImg = css`
@@ -110,6 +121,18 @@ export const emptyImg = css`
     background-color: #dbdbdb;
 
     border: 1px solid #f0f0f0;
+`
+export const stepEmptyImg = css`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100px;
+    height: 100px;
+
+    /* background-color: #dbdbdb; */
+
+    /* border: 1px solid black; */
 `
 
 export const infoRecipe = css`
@@ -472,29 +495,10 @@ export const fic = css`
     align-items: center;
     justify-content: center;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
     width: 220px;
     height: 180px;
 
-    background-color: #f0f0f0;
-
-    cursor: pointer;
-
-    input[type="file"] {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        width: 220px;
-        height: 180px;
-
-        color: transparent;
-
-        border: 1px solid black;
-    }
+    background-color: #dbdbdb;
 
     border: 1px solid #f0f0f0;
 `
