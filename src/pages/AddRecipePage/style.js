@@ -96,17 +96,55 @@ export const Img = css`
 
     background-color: #dbdbdb;
 
-    /* border: 1px solid black; */
+    border: 1px solid #f0f0f0;
+`
+
+export const emptyImg = css`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 490px;
+    height: 355px;
+
+    background-color: #dbdbdb;
+
+    border: 1px solid #f0f0f0;
 `
 
 export const infoRecipe = css`
     display: flex;
+    justify-content: center;
+    align-items: center;
 
     margin-top: 10px;
 
     textarea {
-        width: 500px;
+        width: 455px;
         height: 330px;
+
+        padding: 12px 16px;
+
+        font-size: 14px;
+        font-weight: 700;
+
+        background-color: #ffffff;
+
+        border: 1px solid #f0f0f0;
+    }
+
+    /* border: 1px solid black; */
+`
+export const tipRecipe = css`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-top: 10px;
+
+    textarea {
+        width: 967px;
+        height: 50px;
 
         padding: 12px 16px;
 
@@ -198,7 +236,7 @@ export const inputTitle = css`
     margin-top: 5px;
 
     input {
-        width: 1000px;
+        width: 960px;
         height: 15px;
 
         padding: 12px 16px;
@@ -221,7 +259,7 @@ export const categoryTitle = css`
     width: 1000px;
     height: 30px;
 
-    margin-top: 40px;
+    margin-top: 20px;
 
     span {
         margin-left: 10px;
@@ -342,7 +380,7 @@ export const stepBody = css`
     align-items: center;
     justify-content: space-around;
 
-    width: 1000px;
+    width: 975px;
     height: auto;
 
     margin-top: 10px;

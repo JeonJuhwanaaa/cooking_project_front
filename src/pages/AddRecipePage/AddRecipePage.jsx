@@ -33,6 +33,8 @@ function AddRecipePage(props) {
     const [difficultyLevelId, setDifficultyLevelId] = useState();
     const [recipeTip, setRecipeTip] = useState();
 
+    const [isMainSelect, setIsMainSelect] = useState(false);
+
     const fileRef = useRef();
 
     const [ingredients, setIngredient] = useState([
@@ -273,13 +275,16 @@ function AddRecipePage(props) {
         setSteps(newSteps);
     }
 
-    const [mainImg, setMainImg] = useState(null);
+    const [mainFic, setMainFic] = useState(null);
 
     const handleSelectFicture = (e) => {
         const file = e.target.files[0]; // 선택한 파일의 첫 번째 파일 객체를 가져옴
         if (file) {
           const fileURL = URL.createObjectURL(file); // 파일의 URL 생성
-          setMainImg(fileURL);
+          setMainFic(fileURL);
+          if(mainFic !== "") {
+            setIsMainSelect(true);
+          }
         }
     }
 
@@ -402,11 +407,22 @@ function AddRecipePage(props) {
                 <div css={s.mainImg}>
                     <div css={s.square}>
                         <div css={s.shortTitle}>
-                            <span>메인 사진을 올려주세요.</span>
+                            <span>요리 대표 사진을 등록해 주세요.</span>
                         </div>
                         <div css={s.selectImg}>
-                            <input type="file" style={{display: "none"}} onChange={handleSelectFicture} ref={fileRef}/>
-                            <img css={s.Img} src={mainImg} alt="" onClick={() => fileRef.current.click()} />
+                            {
+                                isMainSelect !== false
+                                ?
+                                <>
+                                    <input type="file" style={{display: "none"}} onChange={handleSelectFicture} ref={fileRef}/>
+                                    <img css={s.Img} src={mainFic} alt="" onClick={() => fileRef.current.click()} />
+                                </>
+                                :
+                                <div css={s.emptyImg} onClick={() => fileRef.current.click()} >
+                                    <input type="file" style={{display: "none"}} onChange={handleSelectFicture} ref={fileRef}/>
+                                    <img src={camera} alt=""  />
+                                </div>
+                            }
                         </div>
                     </div>
 
@@ -420,12 +436,6 @@ function AddRecipePage(props) {
                     </div>
                 </div>
 
-
-                <div css={s.title}>
-                    <span>요리를 소개해주세요. (최대 200자)</span>
-                </div>
-
-
                 <div css={s.categoryTitle}>
                     <span>카테고리를 정해주세요.</span>
                 </div>
@@ -437,7 +447,7 @@ function AddRecipePage(props) {
                 </div>
 
                 <div css={s.title}>
-                    <span>요리 정보</span>
+                    <span>요리 정보를 정해주세요.</span>
                 </div>
                 <div css={s.category}>
                     <Select options={personnelOption} placeholder="사람 수" styles={selectStyle} onChange={handlePersonnelIdOnChange}></Select>
@@ -491,7 +501,7 @@ function AddRecipePage(props) {
                 </div>
 
                 <div css={s.title}>
-                    <span>요리 순서</span>
+                    <span>요리를 순서대로 작성해주세요.</span>
                 </div>
                 <div css={s.stepBody}>
 
@@ -518,10 +528,10 @@ function AddRecipePage(props) {
                 </div>
 
                 <div css={s.title}>
-                    <span>요리 팁</span>
+                    <span>요리 팁이 있다면 작성해주세요.</span>
                     <span>(선택사항)</span>
                 </div>
-                <div css={s.infoRecipe}>
+                <div css={s.tipRecipe}>
                     <textarea type="text" maxLength={200} style={{resize: "none"}} placeholder="예) 처음에 참치 기름으로 김치를 먼저 볶아주면 좀 더 풍미있는 김치찌개를 만들 수 있어요." value={recipeTip} onChange={handleRecipeTipOnChange}/>
                 </div>
 
