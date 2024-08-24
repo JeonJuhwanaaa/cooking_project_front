@@ -120,6 +120,8 @@ export const emptyImg = css`
 
     background-color: #dbdbdb;
 
+    cursor: pointer;
+
     border: 1px solid #f0f0f0;
 `
 export const stepEmptyImg = css`
@@ -401,9 +403,9 @@ export const stepBody = css`
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
 
-    width: 975px;
+    width: 980px;
     height: auto;
 
     margin-top: 10px;
@@ -499,6 +501,8 @@ export const fic = css`
     height: 180px;
 
     background-color: #dbdbdb;
+
+    cursor: pointer;
 
     border: 1px solid #f0f0f0;
 `
