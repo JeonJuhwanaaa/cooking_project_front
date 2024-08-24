@@ -6,7 +6,8 @@ import Select from "react-select";
 import { useEffect, useRef, useState } from "react";
 import { useQuery } from "react-query";
 import { BsPlusLg } from "react-icons/bs";
-import camera from "./camera.png";
+import foodImg from "./food.png";
+import MainImage from "./image2.png";
 import { getDifficultyLevel, getFoodType, getIngredientType, getPersonnel, getSituationType, getTakeTime, getWayType } from "../../apis/options";
 import { ingredientRequest, recipeRequest, seasoningRequest } from "../../apis/recipe";
 
@@ -427,7 +428,7 @@ function AddRecipePage(props) {
                                 :
                                 <div css={s.emptyImg} onClick={() => fileRef.current.click()} >
                                     <input type="file" style={{display: "none"}} onChange={handleSelectFicture} ref={fileRef}/>
-                                    <img src={camera} alt=""  />
+                                    <img src={foodImg} alt=""  />
                                 </div>
                             }
                         </div>
@@ -527,7 +528,7 @@ function AddRecipePage(props) {
                                         ? 
                                         (<img css={s.stepImg} src={step.image} alt="" />) 
                                         : 
-                                        (<img css={s.stepEmptyImg} src={camera} alt="" />)
+                                        (<img css={s.stepEmptyImg} src={MainImage} alt="" />)
                                     }
                                 </div>
                             </div>
