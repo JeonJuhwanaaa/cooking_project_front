@@ -68,6 +68,7 @@ function AllRecipePage(props) {
                     </div>
 
 
+
                 </div>
 
                 <div css={s.pageCount}>

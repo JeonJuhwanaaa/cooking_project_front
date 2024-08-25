@@ -137,6 +137,8 @@ export const recipeslayout = css`
     margin-top: 10px;
 
     width: 1000px;
+    min-height: 1000px;
+    max-height: 1000px;
     height: auto; // ---------------------------------나중에 auto 로 수정할 것.
 
     border: 1px solid black;

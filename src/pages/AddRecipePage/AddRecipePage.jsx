@@ -36,6 +36,9 @@ function AddRecipePage(props) {
 
     const [isMainSelect, setIsMainSelect] = useState(false);
 
+    const [recipeMainImg, setRecipeMainImg] = useState(null);
+
+
     const fileRef = useRef();
     const stepRef = useRef([]);
 
@@ -283,18 +286,24 @@ function AddRecipePage(props) {
 
     // ---------------------------------------------------- 메인요리 사진 --------------------------------------------------
 
-    const [mainFic, setMainFic] = useState(null);
 
     const handleSelectFicture = (e) => {
         const file = e.target.files[0];
         if (file) {
-          const fileURL = URL.createObjectURL(file);
-          setMainFic(fileURL);
-          if(mainFic !== "") {
-            setIsMainSelect(true);
-          }
+            const fileURL = URL.createObjectURL(file);
+            setRecipeMainImg(fileURL); // 파일 URL을 상태로 설정
+            setIsMainSelect(true); // 사진이 선택되었음을 표시
+        } else {
+            setRecipeMainImg(null); // 파일이 없을 경우 null로 설정
+            setIsMainSelect(false); // 사진이 선택되지 않았음을 표시
         }
+        
+        console.log("Selected mainFic:", recipeMainImg); // 상태 업데이트 확인용 콘솔 출력
     }
+
+    useEffect(() => {
+        console.log("Updated mainFic:", recipeMainImg);
+    }, [recipeMainImg]);
 
     // ------------------------------------------------------- 등록하기 버튼 ------------------------------------------------------
     const handleRegistrationButton = () => {
@@ -306,23 +315,40 @@ function AddRecipePage(props) {
     
         // ----------------------------------------------- userId 값 수정하기 -----------------------------------------
     
-        recipeRequest({
-            userId: 1,
-            recipeTitle,
-            recipeIntro,
-            foodTypeId,
-            situationTypeId,
-            ingredientTypeId,
-            wayTypeId,
-            takeTimeId,
-            personnelId,
-            difficultyLevelId,
-            recipeTip
-        }).then(response => {
-            alert("레시피가 등록되었습니다.");
-        }).catch(error => {
-            alert("레시피 등록 실패");
-        });
+        if (userId === "" ||
+            recipeTitle === "" ||
+            recipeMainImg === "" ||
+            recipeIntro === "" ||
+            foodTypeId === "" ||
+            situationTypeId === "" ||
+            ingredientTypeId === "" ||
+            wayTypeId === "" ||
+            takeTimeId === "" ||
+            personnelId === "" ||
+            difficultyLevelId === "" ||
+            recipeTip === ""
+        ) {
+            alert("빈 칸 없이 작성해주세요.");
+        } else {
+            recipeRequest({
+                userId: 1,
+                recipeTitle,
+                recipeMainImg,
+                recipeIntro,
+                foodTypeId,
+                situationTypeId,
+                ingredientTypeId,
+                wayTypeId,
+                takeTimeId,
+                personnelId,
+                difficultyLevelId,
+                recipeTip
+            }).then(response => {
+                alert("레시피가 등록되었습니다.");
+            }).catch(error => {
+                alert("레시피 등록 실패");
+            });
+        }
     
         // ----------------------------------------------- 재료, 양념 등록 로직 -----------------------------------------
     
@@ -423,7 +449,7 @@ function AddRecipePage(props) {
                                 ?
                                 <>
                                     <input type="file" style={{display: "none"}} onChange={handleSelectFicture} ref={fileRef}/>
-                                    <img css={s.Img} src={mainFic} alt="" onClick={() => fileRef.current.click()} />
+                                    <img css={s.Img} src={recipeMainImg} alt="" onClick={() => fileRef.current.click()} />
                                 </>
                                 :
                                 <div css={s.emptyImg} onClick={() => fileRef.current.click()} >
