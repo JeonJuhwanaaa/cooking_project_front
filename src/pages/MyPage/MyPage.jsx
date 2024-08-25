@@ -47,7 +47,7 @@ function MyPage(props) {
                     <div css={s.line}></div>
                     <div css={s.menu}>
                         <a href=""><RxBorderSolid /> 회원정보 수정</a>
-                        <a href=""><RxBorderSolid /> 나의 레시피</a>
+                        <a href="/allrecipe"><RxBorderSolid /> 나의 레시피</a>
                     </div>
                     <div css={s.line}></div>
                     <div css={s.logout}>

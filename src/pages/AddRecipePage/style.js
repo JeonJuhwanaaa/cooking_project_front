@@ -94,6 +94,8 @@ export const Img = css`
     width: 490px;
     height: 355px;
 
+    cursor: pointer;
+
     border: 1px solid #dbdbdb;
 `
 
@@ -118,7 +120,7 @@ export const emptyImg = css`
     width: 490px;
     height: 355px;
 
-    background-color: #FFC700;
+    background-color: #ffefc4;
 
     cursor: pointer;
 
@@ -500,7 +502,7 @@ export const fic = css`
     width: 220px;
     height: 180px;
 
-    background-color: #FFC700;
+    background-color: #ffefc4;
 
     cursor: pointer;
 

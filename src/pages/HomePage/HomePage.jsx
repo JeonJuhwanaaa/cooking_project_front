@@ -2,9 +2,16 @@
 
 import * as s from "./style";
 import mainFood from "./mainfood.jpg";
+import { useNavigate } from "react-router-dom";
 
 
 function HomePage(props) {
+
+    const navigate = useNavigate();
+
+    const handleRecipeMove = () => {
+        navigate('/allrecipe');
+    }
 
 
 
@@ -24,7 +31,7 @@ function HomePage(props) {
                         <span>회원님이 직접 올린 요리법으로 새로운 맛의 경험을 즐겨보세요.</span>
                         <span>누구나 손쉽게 따라할 수 있는 요리법으로 가족과 친구들과 함께 행복을 만들어 보세요!</span>
                         <div css={s.showButton}>
-                            <button>SEE MORE</button>
+                            <button onClick={handleRecipeMove}>SEE MORE</button>
                         </div>
                     </div>
                 </div>
