@@ -9,7 +9,7 @@ import { BsPlusLg } from "react-icons/bs";
 import foodImg from "./food.png";
 import MainImage from "./image2.png";
 import { getDifficultyLevel, getFoodType, getIngredientType, getPersonnel, getSituationType, getTakeTime, getWayType } from "../../apis/options";
-import { ingredientRequest, recipeRequest, seasoningRequest } from "../../apis/recipe";
+import { ingredientRequest, recipeRequest, seasoningRequest, stepRequest } from "../../apis/recipe";
 
 
 function AddRecipePage(props) {
@@ -383,6 +383,18 @@ function AddRecipePage(props) {
                 alert("양념 등록 실패");
             });
         }
+
+
+        stepRequest({
+            recipeId: 1,
+            stepNumber,
+            stepDescription,
+            stepPhotoUrl
+        }).then(response => {
+
+        }).catch(error => {
+            
+        });;
 
     }
 
