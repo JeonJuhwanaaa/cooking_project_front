@@ -26,6 +26,7 @@ function AddRecipePage(props) {
     const [difficultyLevelOption, setDifficultyLevelOption] = useState([]);
 
     const [userId, setUserId] = useState();
+    const [recipeId, setRecipeId] = useState();
 
     const [recipeTitle, setRecipeTitle] = useState();
     const [recipeIntro, setRecipeIntro] = useState();
@@ -384,9 +385,6 @@ function AddRecipePage(props) {
         } else {
             setRecipeMainImg(() => null); // 기본 이미지로 설정 (null로 설정하거나 기본 이미지 URL로 설정)
             setIsMainSelect(false);
-            if(recipeMainImg === "") {
-                alert("메인 사진 비었음");
-            }
         }
     }
 
@@ -407,7 +405,8 @@ function AddRecipePage(props) {
     
         // ----------------------------------------------- userId 값 수정하기 -----------------------------------------
     
-        if (userId === "" ||
+        if (recipeId === "" ||
+            userId === "" ||
             recipeTitle === "" ||
             recipeMainImg === "" ||
             recipeIntro === "" ||
@@ -423,6 +422,7 @@ function AddRecipePage(props) {
             alert("빈 칸 없이 작성해주세요.");
         } else {
             recipeRequest({
+                recipeId: 1,
                 userId: 1,
                 recipeTitle,
                 recipeMainImg,
