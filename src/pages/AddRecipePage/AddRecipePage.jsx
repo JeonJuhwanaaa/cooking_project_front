@@ -7,9 +7,12 @@ import { useEffect, useRef, useState } from "react";
 import { useQuery } from "react-query";
 import { BsPlusLg } from "react-icons/bs";
 import foodImg from "./food.png";
+import {v4 as uuid} from "uuid";
 import MainImage from "./image2.png";
 import { getDifficultyLevel, getFoodType, getIngredientType, getPersonnel, getSituationType, getTakeTime, getWayType } from "../../apis/options";
 import { ingredientRequest, recipeRequest, seasoningRequest, stepRequest } from "../../apis/recipe";
+import { storage } from "../../firebase/config/firebaseConfig";
+import { getDownloadURL, ref, uploadBytes, uploadBytesResumable } from "firebase/storage";
 
 
 function AddRecipePage(props) {
@@ -23,6 +26,7 @@ function AddRecipePage(props) {
     const [difficultyLevelOption, setDifficultyLevelOption] = useState([]);
 
     const [userId, setUserId] = useState();
+
     const [recipeTitle, setRecipeTitle] = useState();
     const [recipeIntro, setRecipeIntro] = useState();
     const [foodTypeId, setFoodTypeId] = useState();
@@ -36,8 +40,7 @@ function AddRecipePage(props) {
 
     const [isMainSelect, setIsMainSelect] = useState(false);
 
-    const [recipeMainImg, setRecipeMainImg] = useState(null);
-
+    const [recipeMainImg, setRecipeMainImg] = useState("");
 
     const fileRef = useRef();
     const stepRef = useRef([]);
@@ -50,7 +53,15 @@ function AddRecipePage(props) {
         {seasoningName:"", seasoningState:""},
         {seasoningName:"", seasoningState:""}
     ]);
-
+    const [steps, setSteps] = useState([
+        {id: 1, text: "", image: ""},
+        {id: 2, text: "", image: ""}
+    ]);
+    
+    // useEffect(() => {
+        // console.log(steps);
+    //     console.log("메인요리 사진: ", recipeMainImg);
+    // },[steps, recipeMainImg]);
 
     const selectStyle = {
         control: baseStyles => ({
@@ -247,11 +258,6 @@ function AddRecipePage(props) {
     
     // 요리 순서 ------------------------------------------------------
 
-    const [steps, setSteps] = useState([
-        {id: 1, text: "", image: ""},
-        {id: 2, text: "", image: ""}
-    ]);
-
     const handleAddStep = (e, index) => {
         const newSteps = [...steps];
         newSteps[index].text = e.target.value;
@@ -265,18 +271,78 @@ function AddRecipePage(props) {
         ]);
     };
 
-    const handleImageChange = (index, event) => {
-        const file = event.target.files[0];
-        if (file) {
-          const reader = new FileReader();
-          reader.onloadend = () => {
-            const newSteps = [...steps];
-            newSteps[index].image = reader.result;
-            setSteps(newSteps);
-          };
-          reader.readAsDataURL(file);
+    const handleImageChange = async (index, e) => {
+        // const file = e.target.files[0];
+        // if (file) {
+        //   const reader = new FileReader();
+        //   reader.onloadend = () => {
+        //     const newSteps = [...steps];
+        //     newSteps[index].image = reader.result;
+        //     setSteps(newSteps);
+        //   };
+        //   reader.readAsDataURL(file);
+        // }
+
+        const files = e.target.files[0];
+
+        // if(files.length === 0) {
+        //     e.target.value = "";
+        //     return;
+        // }
+
+        // if(!window.confirm("사진을 업로드 하시겠습니까?")) {
+        //     e.target.value = "";
+        //     return;
+        // }
+
+        // const storageRef = ref(storage, `recipe/steps/${uuid()}_${files[0].name}`);
+        // const uploadTask = uploadBytesResumable(storageRef, files[0]);
+
+        // console.log(storageRef);
+        // console.log(uploadTask);
+
+        // uploadTask.on(
+        //     "state_changed",
+        //     snapshot => {},
+        //     error => {
+        //         console.error("Upload failed:", error); // 업로드 실패 시 에러 로그
+        //         alert("이미지 업로드 실패");
+        //     },
+        //     () => {
+        //         alert("업로드가 완료되었습니다.");
+        //         getDownloadURL(storageRef)
+        //         .then(downloadURL => {
+        //             console.log("file available at", downloadURL)
+        //             const newSteps = [...steps];
+        //             newSteps[index].image = downloadURL;
+        //             setSteps(newSteps);
+        //             alert("이미지 업로드 성공");
+        //         }).catch(error => {
+        //             alert("이미지 url 가져오기 중 오류발생");
+        //         });
+        //     }
+        // );
+
+        if (files) {
+            // 파일 참조 생성
+            const storageRef = ref(storage, `recipe/steps/${uuid()}_${files.name}`);
+            try {
+                // 파일 업로드
+                await uploadBytes(storageRef, files);
+                // 다운로드 URL 가져오기
+                const url = await getDownloadURL(storageRef);
+                // 상태 업데이트
+                setSteps(prevSteps => {
+                    const updatedSteps = [...prevSteps];
+                    updatedSteps[index].image = url;
+                    return updatedSteps;
+                });
+            } catch (error) {
+                console.error('Error uploading file:', error);
+            }
         }
-      };
+    };
+
 
 
     const handleDeleteStep = (index) => {
@@ -287,23 +353,42 @@ function AddRecipePage(props) {
     // ---------------------------------------------------- 메인요리 사진 --------------------------------------------------
 
 
-    const handleSelectFicture = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            const fileURL = URL.createObjectURL(file);
-            setRecipeMainImg(fileURL); // 파일 URL을 상태로 설정
-            setIsMainSelect(true); // 사진이 선택되었음을 표시
-        } else {
-            setRecipeMainImg(null); // 파일이 없을 경우 null로 설정
-            setIsMainSelect(false); // 사진이 선택되지 않았음을 표시
-        }
+    const handleSelectFicture = async (e) => {
+        // const file = e.target.files[0];
+        // if (file) {
+        //     const fileURL = URL.createObjectURL(file);
+        //     setRecipeMainImg(fileURL); // 파일 URL을 상태로 설정
+        //     setIsMainSelect(true); // 사진이 선택되었음을 표시
+        // } else {
+        //     setRecipeMainImg(null); // 파일이 없을 경우 null로 설정
+        //     setIsMainSelect(false); // 사진이 선택되지 않았음을 표시
+        // }
         
-        console.log("Selected mainFic:", recipeMainImg); // 상태 업데이트 확인용 콘솔 출력
-    }
+        // console.log("Selected mainFic:", recipeMainImg); // 상태 업데이트 확인용 콘솔 출력
 
-    useEffect(() => {
-        console.log("Updated mainFic:", recipeMainImg);
-    }, [recipeMainImg]);
+        const files = e.target.files[0];
+
+        if(files) {
+            const storageRef = ref(storage, `recipe/main/${uuid()}_${files.name}`);
+
+            try {
+                await uploadBytes(storageRef, files);
+                const url = await getDownloadURL(storageRef);
+                setRecipeMainImg(url);
+                setIsMainSelect(true);
+            } catch (error) {
+                setRecipeMainImg("");
+                setIsMainSelect(false);
+                console.error('Error uploading main_file:', error);
+            }
+        } else {
+            setRecipeMainImg(() => null); // 기본 이미지로 설정 (null로 설정하거나 기본 이미지 URL로 설정)
+            setIsMainSelect(false);
+            if(recipeMainImg === "") {
+                alert("메인 사진 비었음");
+            }
+        }
+    }
 
     // ------------------------------------------------------- 등록하기 버튼 ------------------------------------------------------
     const handleRegistrationButton = () => {
@@ -312,6 +397,13 @@ function AddRecipePage(props) {
     
         const seasoningName = seasonings.map(item => item.seasoningName);
         const seasoningState = seasonings.map(item => item.seasoningState);
+
+        const stepNumber = steps.map(item => item.id);
+        console.log(stepNumber);
+        const stepDescription = steps.map(item => item.text);
+        console.log(stepDescription);
+        const stepPhotoUrl = steps.map(item => item.image);
+        console.log(stepPhotoUrl);
     
         // ----------------------------------------------- userId 값 수정하기 -----------------------------------------
     
@@ -391,12 +483,13 @@ function AddRecipePage(props) {
             stepDescription,
             stepPhotoUrl
         }).then(response => {
-
+            alert("요리 순서 등록");
         }).catch(error => {
-            
+            alert("요리 순서 등록 실패");
         });;
 
     }
+
 
     const handleRecipeTitleOnChange = (e) => {
         setRecipeTitle(() => e.target.value);
