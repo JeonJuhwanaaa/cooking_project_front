@@ -15,3 +15,7 @@ export const seasoningRequest = async(data) => {
 export const stepRequest = async(data) => {
     return await instance.post("/recipe/step", data);
 }
+
+export const getRecipes = async(data) => {
+    return await instance.get("/recipe/allRecipes", data);
+}

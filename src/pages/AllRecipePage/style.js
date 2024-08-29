@@ -168,6 +168,11 @@ export const mainFic = css`
     border: 1px solid black;
 `
 
+export const foodImg = css`
+    width: 180px;
+    height: 180px;
+`
+
 export const recipeInfo = css`
     display: flex;
     flex-direction: column;

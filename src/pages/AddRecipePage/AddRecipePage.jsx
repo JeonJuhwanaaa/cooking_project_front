@@ -422,7 +422,7 @@ function AddRecipePage(props) {
             alert("빈 칸 없이 작성해주세요.");
         } else {
             recipeRequest({
-                recipeId: 1,
+                recipeId: 2,
                 userId: 1,
                 recipeTitle,
                 recipeMainImg,
@@ -456,7 +456,7 @@ function AddRecipePage(props) {
             alert("재료 또는 양념의 빈 칸 없이 입력해주세요.");
         } else {
             ingredientRequest({
-                recipeId: 1,
+                recipeId: 2,
                 ingredientName,
                 ingredientState
             }).then(response => {
@@ -466,7 +466,7 @@ function AddRecipePage(props) {
             });
 
             seasoningRequest({
-                recipeId: 1,
+                recipeId: 2,
                 seasoningName,
                 seasoningState
             }).then(response => {
@@ -478,7 +478,7 @@ function AddRecipePage(props) {
 
 
         stepRequest({
-            recipeId: 1,
+            recipeId: 2,
             stepNumber,
             stepDescription,
             stepPhotoUrl
@@ -486,7 +486,7 @@ function AddRecipePage(props) {
             alert("요리 순서 등록");
         }).catch(error => {
             alert("요리 순서 등록 실패");
-        });;
+        });
 
     }
 

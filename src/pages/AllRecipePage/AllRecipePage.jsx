@@ -4,8 +4,30 @@
 import * as s from "./style";
 import { useNavigate } from "react-router-dom";
 import { IoSearchOutline } from "react-icons/io5";
+import { useQuery } from "react-query";
+import { getRecipes } from "../../apis/recipe";
+import { useState } from "react";
 
 function AllRecipePage(props) {
+
+    const [mainImg, setMainImg] = useState();
+    const [recipeTitle, setRecipeTitle] = useState();
+    const [recipeUsername, setRecipeUsername] = useState();
+    const [recipeInfo, setRecipeInfo] = useState();
+
+    const getRecipesQuery = useQuery(
+        ["getRecipesQuery"],getRecipes,
+        {
+            onSuccess: response => {
+                // console.log(response.data[0]);
+                setMainImg(response.data[0].recipeMainImg);
+                setRecipeTitle(response.data[0].recipeTitle);
+                setRecipeInfo(response.data[0].recipeIntro);
+            },
+            retry: 0,
+            refetchOnWindowFocus: false
+        }
+    );
 
 
     return (
@@ -29,17 +51,17 @@ function AllRecipePage(props) {
 
                     <div css={s.recipes}>
                         <div css={s.mainFic}>
-                            메인음식 사진
+                            <img css={s.foodImg} src={mainImg} alt="" />
                         </div>
                         <div css={s.recipeInfo}>
                             <div css={s.recipeName}>
-                                <span>레시피 이름 자리</span>
+                                <span>{recipeTitle}</span>
                             </div>
                             <div css={s.recipeNic}>
                                 <span>닉네임 자리</span>
                             </div>
                             <div css={s.recipeExp}>
-                                <span>요리 설명</span>
+                                <span>{recipeInfo}</span>
                             </div>
                             <div css={s.recipeScor}>
                                 <span>별점</span>
@@ -47,25 +69,6 @@ function AllRecipePage(props) {
                         </div>
                     </div>
 
-                    <div css={s.recipes}>
-                        <div css={s.mainFic}>
-                            메인음식 사진
-                        </div>
-                        <div css={s.recipeInfo}>
-                            <div css={s.recipeName}>
-                                <span>레시피 이름 자리</span>
-                            </div>
-                            <div css={s.recipeNic}>
-                                <span>닉네임 자리</span>
-                            </div>
-                            <div css={s.recipeExp}>
-                                <span>요리 설명</span>
-                            </div>
-                            <div css={s.recipeScor}>
-                                <span>별점</span>
-                            </div>
-                        </div>
-                    </div>
 
 
 
